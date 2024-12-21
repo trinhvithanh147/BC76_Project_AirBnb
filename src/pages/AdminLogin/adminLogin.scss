@@ -1,0 +1,14 @@
+section {
+  .text_login {
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: -3px;
+      left: 0;
+      width: 35px;
+      height: 3px;
+      @apply bg-violet-500;
+    }
+  }
+}

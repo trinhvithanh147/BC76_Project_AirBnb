@@ -47,44 +47,48 @@ const AdminTemplate = () => {
           items={[
             {
               key: "1",
-              icon: <FaUser className="!text-[16px]"/>,
-              label: 
-              <NavLink to={pathDefault.managerUser}>
-                <span>User</span> 
-              </NavLink>
-              ,
+              icon: <FaUser className="!text-[16px]" />,
+              label: (
+                <NavLink to={pathDefault.managerUser}>
+                  <span>User</span>
+                </NavLink>
+              ),
             },
             {
               key: "2",
-              icon: <FaCalendarAlt className="!text-[16px]"/>,
-              label:
-              <NavLink to={pathDefault.managerReservation}>
-                <span>Reservation</span>
-              </NavLink> ,
+              icon: <FaCalendarAlt className="!text-[16px]" />,
+              label: (
+                <NavLink to={pathDefault.managerReservation}>
+                  <span>Reservation</span>
+                </NavLink>
+              ),
             },
             {
               key: "3",
-              icon: <BiSolidCommentDetail className="!text-[16px]"/>,
-              label:
-              <NavLink to={pathDefault.managerComments}>
-                <span>Comments</span>
-              </NavLink> ,
+              icon: <BiSolidCommentDetail className="!text-[16px]" />,
+              label: (
+                <NavLink to={pathDefault.managerComments}>
+                  <span>Comments</span>
+                </NavLink>
+              ),
             },
             {
               key: "4",
-              icon: <MdBedroomChild className="!text-[16px]"/>,
-              label: 
-              <NavLink to={pathDefault.managerRoom}>
-                <span>Room</span>
-              </NavLink> ,
+              icon: <MdBedroomChild className="!text-[16px]" />,
+              label: (
+                <NavLink to={pathDefault.managerRoom}>
+                  <span>Room</span>
+                </NavLink>
+              ),
             },
             {
               key: "5",
-              icon: <FaLocationDot className="!text-[16px]"/>,
-              label: 
-              <NavLink to={pathDefault.managerLocation}>
-                <span>Location</span>
-              </NavLink>,
+              icon: <FaLocationDot className="!text-[16px]" />,
+              label: (
+                <NavLink to={pathDefault.managerLocation}>
+                  <span>Location</span>
+                </NavLink>
+              ),
             },
           ]}
         />
@@ -105,18 +109,14 @@ const AdminTemplate = () => {
             <div className="header_right">
               <div className="flex gap-4">
                 <div className="notification">
-                  <IoIosNotifications className="text-[20px] cursor-pointer"/>
+                  <IoIosNotifications className="text-[20px] cursor-pointer" />
                 </div>
                 <div className="email">
-                  <IoIosMail className="text-[20px] cursor-pointer"/>
+                  <IoIosMail className="text-[20px] cursor-pointer" />
                 </div>
                 <div className="user">
-                    <div className="avatar">
-
-                    </div>
-                    <div className="user-name">
-
-                    </div>
+                  <div className="avatar"></div>
+                  <div className="user-name"></div>
                 </div>
               </div>
             </div>

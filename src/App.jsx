@@ -9,6 +9,7 @@ import ManagerReservation from "./pages/ManagerReservation/ManagerReservation";
 import ManagerComments from "./pages/ManagerComments/ManagerComments";
 import ManagerRoom from "./pages/ManagerRoom/ManagerRoom";
 import ManagerLocation from "./pages/ManagerLocation/ManagerLocation";
+import AdminLogin from "./pages/AdminLogin/AdminLogin";
 export const NotificationContext = createContext();
 const arrRoutes = [
   {
@@ -16,35 +17,39 @@ const arrRoutes = [
     element: <HomeTemplate />,
   },
   {
+    path: pathDefault.adminLogin,
+    element: <AdminLogin />,
+  },
+  {
     path: pathDefault.admin,
-    element: <AdminTemplate/>,
+    element: <AdminTemplate />,
     children: [
       {
         index: true,
-        element: <ManagerUser/>
+        element: <ManagerUser />,
       },
       {
         path: pathDefault.managerUser,
-        element: <ManagerUser/>
+        element: <ManagerUser />,
       },
       {
         path: pathDefault.managerReservation,
-        element: <ManagerReservation/>
+        element: <ManagerReservation />,
       },
       {
         path: pathDefault.managerComments,
-        element: <ManagerComments/>
+        element: <ManagerComments />,
       },
       {
         path: pathDefault.managerRoom,
-        element: <ManagerRoom/>
+        element: <ManagerRoom />,
       },
       {
         path: pathDefault.managerLocation,
-        element: <ManagerLocation/>
-      }
-    ]
-  }
+        element: <ManagerLocation />,
+      },
+    ],
+  },
 ];
 
 function App() {

@@ -5,5 +5,6 @@ export const pathDefault = {
   managerReservation: "/admin/manager-reservation",
   managerComments: "/admin/manager-comments",
   managerRoom: "/admin/manager-room",
-  managerLocation: "/admin/manager-location"
+  managerLocation: "/admin/manager-location",
+  adminLogin: "/admin-login",
 };
