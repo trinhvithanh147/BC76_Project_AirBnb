@@ -1,0 +1,23 @@
+.ant-dropdown-menu-title-content {
+  display: unset !important;
+  width: 100%;
+}
+
+.ant-input {
+  padding: unset !important;
+}
+.ant-input-outlined,
+.ant-picker-input {
+  border: none !important;
+}
+
+.ant-picker {
+  border: none !important;
+  padding: unset !important;
+}
+
+.ant-picker-input {
+  .anticon {
+    display: none;
+  }
+}
