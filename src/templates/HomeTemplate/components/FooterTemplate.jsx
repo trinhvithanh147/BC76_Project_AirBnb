@@ -76,7 +76,7 @@ const FooterTemplate = () => {
   ];
   return (
     <footer className="pt-10  bg-[#F7F7F7]">
-      <div className="container grid grid-cols-3 border-b-2">
+      <div className="container grid grid-cols-3 border-b-2 pb-10">
         {titleList.map((item, index) => {
           return (
             <ul className="space-y-5" key={index}>
