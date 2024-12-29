@@ -12,12 +12,11 @@ const RoomItem = ({
   price,
   roomCode,
 }) => {
-  console.log(price);
   const navigate = useNavigate();
   return (
     <div
       onClick={() => {
-        navigate(`/room-detail/${roomCode}}`);
+        navigate(`/room-detail/${roomCode}`);
       }}
       className="grid grid-cols-2 gap-5 hover:cursor-pointer"
     >
