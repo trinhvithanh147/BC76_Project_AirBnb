@@ -1,25 +1,29 @@
-import {
-  CommentOutlined,
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-} from "@ant-design/icons";
+import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { Button, Layout, Menu, theme } from "antd";
-import { FaUser } from "react-icons/fa";
-import { FaCalendarAlt } from "react-icons/fa";
+import { useEffect, useState } from "react";
 import { BiSolidCommentDetail } from "react-icons/bi";
-import { MdBedroomChild } from "react-icons/md";
-import { IoIosMail } from "react-icons/io";
+import { FaCalendarAlt, FaUser } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
-import { IoIosNotifications } from "react-icons/io";
-import { useState } from "react";
-import Icon from "../../components/Icon";
+import { IoIosMail, IoIosNotifications } from "react-icons/io";
+import { MdBedroomChild } from "react-icons/md";
 import { NavLink, Outlet } from "react-router-dom";
 import { pathDefault } from "../../common/path";
+import Icon from "../../components/Icon";
 const { Header, Sider, Content } = Layout;
 const AdminTemplate = () => {
+  useEffect(() => {
+    const dataString = localStorage.getItem("userInfo");
+    if (!dataString) {
+      window.location.href = pathDefault.adminLogin;
+    } else {
+      const data = JSON.parse(dataString);
+      if (data.user.role !== "ADMIN") {
+        window.location.href = pathDefault.admin;
+      } else {
+        console.log(data);
+      }
+    }
+  }, []);
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer, borderRadiusLG },

@@ -1,4 +1,5 @@
 import { useRoutes } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
 import { pathDefault } from "./common/path";
 import { Children, createContext } from "react";
 import { Bounce, toast, ToastContainer } from "react-toastify";

@@ -1,13 +1,67 @@
+import { UserOutlined } from "@ant-design/icons";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import { Button } from "antd";
+import { TbLockPassword } from "react-icons/tb";
+import Icon from "../../components/Icon";
 import "./adminLogin.scss";
 import InputAdminLogin from "./components/InputAdminLogin/InputAdminLogin";
-import { UserOutlined } from "@ant-design/icons";
-import { TbLockPassword } from "react-icons/tb";
-import { Button } from "antd";
-import Icon from "../../components/Icon";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { authService } from "../../services/auth.service";
+import { useNavigate } from "react-router-dom";
+import { pathDefault } from "../../common/path";
+import { useContext, useEffect } from "react";
+import { NotificationContext } from "../../App";
 const AdminLogin = () => {
+  const navigate = useNavigate();
+  const handleNotification = useContext(NotificationContext);
+  useEffect(() => {
+    const dataString = localStorage.getItem("userInfo");
+    if (dataString) {
+      const data = JSON.parse(dataString);
+      if (data.user.role == "ADMIN") {
+        window.location.href = pathDefault.admin;
+      }
+    }
+  }, []);
+
+  const { handleSubmit, handleChange, handleBlur, values, errors, touched } =
+    useFormik({
+      initialValues: {
+        email: "", // thường trùng với thuộc tính name để liên kết giá trị
+        password: "",
+      },
+      onSubmit: (values) => {
+        authService
+          .signIn(values)
+          .then((res) => {
+            console.log(res);
+            if (res.data.content.user.role === "ADMIN") {
+              localStorage.setItem(
+                "userInfo",
+                JSON.stringify(res.data.content)
+              );
+              handleNotification("success", "Đăng nhập thành công", 1500);
+              setTimeout(() => {
+                navigate(pathDefault.admin);
+              }, 1500);
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+            handleNotification("error", err.response.data.content);
+          });
+      },
+      validationSchema: Yup.object({
+        email: Yup.string()
+          .required("Please do not leave this field empty")
+          .email("Please enter a valid email address"),
+        password: Yup.string().required("Please do not leave this field empty"),
+      }),
+    });
+
   return (
-    <section className="h-screen bg-gradient-to-r from-violet-500 to-fuchsia-500">
+    <section className="h-screen bg-[#F1F7FE]">
       <div className="flex justify-center items-center h-full">
         <div className="w-[1200px] h-[700px] bg-white rounded-xl p-10 shadow-2xl">
           <div className="grid grid-cols-2 flex-col h-full ">
@@ -27,19 +81,35 @@ const AdminLogin = () => {
                   <h3 className="text-[16px] font-medium relative mb-5">
                     <span className="text_login">Login</span> as a Admin User
                   </h3>
-                  <form action="">
+                  <form onSubmit={handleSubmit} className="space-y-5">
                     <InputAdminLogin
                       prefix={<UserOutlined className="text-[16px]" />}
-                      placeholder={"Enter your email address"}
-                      className={"mb-5 p-3 rounded-full"}
+                      placeholder={"Enter your email"}
+                      className={" p-3 rounded-full"}
+                      name={"email"}
+                      value={values.email}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      error={errors.email}
+                      touched={touched.email}
                     />
                     <InputAdminLogin
                       prefix={<TbLockPassword className="text-[16px]" />}
                       placeholder={"Enter your password"}
-                      className={"mb-5 p-3 rounded-full"}
+                      className={"p-3 rounded-full"}
                       type={"password"}
+                      name={"password"}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      touched={touched.password}
+                      value={values.password}
+                      error={errors.password}
                     />
-                    <Button className="w-full  p-5 rounded-full  h-[48px] flex items-center justify-center mb-2 tracking-[0.2em] bg-violet-500 text-white hover:!border-violet-500 hover:!text-violet-500">
+                    <Button
+                      variant="solid"
+                      htmlType="submit"
+                      className="w-full  p-5 rounded-full  h-[48px] flex items-center justify-center mb-2 tracking-[0.2em] bg-violet-500 text-white hover:!border-violet-500 hover:!text-violet-500"
+                    >
                       LOGIN
                     </Button>
                     <div className="text-center mt-5">

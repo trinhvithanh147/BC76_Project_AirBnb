@@ -3,16 +3,16 @@ import { Input } from "antd";
 import React from "react";
 
 const InputAdminLogin = ({
-  labelContent,
   placeholder,
-  id,
   name,
-  type,
+  type = "text",
   onChange,
   onBlur,
   value,
   prefix,
   className = "",
+  touched,
+  error,
 }) => {
   return (
     <div>
@@ -26,6 +26,7 @@ const InputAdminLogin = ({
         onChange={onChange}
         onBlur={onBlur}
       />
+      {touched && error ? <p className="text-red-500 mt-1">{error}</p> : null}
     </div>
   );
 };
