@@ -29,7 +29,7 @@ const AdminTemplate = () => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
   return (
-    <Layout className="h-screen">
+    <Layout className="h-min-screen">
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="demo-logo-vertical" />
         {collapsed ? (
