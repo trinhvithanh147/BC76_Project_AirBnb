@@ -7,4 +7,8 @@ export const nguoiDungService = {
   xoaNguoiDung: (id) => {
     return http.delete(`/users?id=${id}`);
   },
+  capNhatNguoiDung : (id,value) =>{
+    return http.put(`/users/${id}`,value);
+  },
+  
 };

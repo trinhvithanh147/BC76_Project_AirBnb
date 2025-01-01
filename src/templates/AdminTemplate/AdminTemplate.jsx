@@ -17,10 +17,8 @@ const AdminTemplate = () => {
       window.location.href = pathDefault.adminLogin;
     } else {
       const data = JSON.parse(dataString);
-      if (data.user.role !== "ADMIN") {
-        window.location.href = pathDefault.admin;
-      } else {
-        console.log(data);
+      if (data.user.role !== "ADMIN") { 
+        window.location.href = pathDefault.homePage;
       }
     }
   }, []);

@@ -36,7 +36,7 @@ const AdminLogin = () => {
           .signIn(values)
           .then((res) => {
             console.log(res);
-            if (res.data.content.user.role === "ADMIN") {
+            if (res.data.content.user.role == "ADMIN") {
               localStorage.setItem(
                 "userInfo",
                 JSON.stringify(res.data.content)
@@ -47,6 +47,7 @@ const AdminLogin = () => {
               }, 1500);
             }
           })
+          
           .catch((err) => {
             console.log(err);
             handleNotification("error", err.response.data.content);

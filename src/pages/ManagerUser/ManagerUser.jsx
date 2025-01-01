@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { nguoiDungService } from "../../services/nguoiDung.service";
 import { Avatar, Button, Modal, Popconfirm, Table, Tag } from "antd";
 import { NotificationContext } from "../../App";
+import FormUpdateUser from "./components/FormUpdateUser";
 const ManagerUser = () => {
   const [listNguoiDung, setListNguoiDung] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -98,7 +99,7 @@ const ManagerUser = () => {
           </Tag>
         ) : (
           <Tag className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white px-4 py-1 rounded-full font-medium">
-            {value || "Undefined"}
+            {value  && "UNDERFIND"}
           </Tag>
         );
       },
@@ -175,9 +176,7 @@ const ManagerUser = () => {
           setIsModalOpen(false);
         }}
       >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
+        <FormUpdateUser handleCloseModal ={()=>{setIsModalOpen(false)}}  formData={formData} layDanhSachNguoiDung={layDanhSachNguoiDung}/>
       </Modal>
     </div>
   );
