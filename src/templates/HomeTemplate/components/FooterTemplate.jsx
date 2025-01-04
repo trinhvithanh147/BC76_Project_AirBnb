@@ -76,7 +76,7 @@ const FooterTemplate = () => {
   ];
   return (
     <footer className="pt-10  bg-[#F7F7F7]">
-      <div className="container grid grid-cols-3 border-b-2 pb-10">
+      <div className="container grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-0 border-b-2 pb-10">
         {titleList.map((item, index) => {
           return (
             <ul className="space-y-5" key={index}>
@@ -94,9 +94,9 @@ const FooterTemplate = () => {
           );
         })}
       </div>
-      <div className="container py-5 flex justify-between items-center">
+      <div className="container py-5 flex flex-col-reverse gap-4 lg:flex-row lg:gap-0 justify-between items-center">
         {/* left  */}
-        <div className="flex">
+        <div className="hidden md:flex">
           <p>© 2024 Airbnb, Inc.</p>
           <ul className="flex">
             <li>

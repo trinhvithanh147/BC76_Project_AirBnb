@@ -7,7 +7,7 @@ import { phongService } from "../../services/phong.service";
 import Item from "antd/es/list/Item";
 import { viTriService } from "../../services/viTri.service";
 import RoomInfo from "./components/RoomInfo";
-
+import "./roomDetail.scss";
 const RoomDetail = () => {
   const [roomDetail, setRoomDetail] = useState({});
   const [location, setLocation] = useState({});

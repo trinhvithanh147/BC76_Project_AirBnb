@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 
-const GuestInput = () => {
+const GuestInput = ({ setGuest }) => {
   const [showGuestBox, setShowGuestBox] = useState(false);
   const [guestCount, setGuestCount] = useState(1);
   const [selectedGuestCount, setSelectedGuestCount] = useState(null);
@@ -18,12 +18,13 @@ const GuestInput = () => {
   // Hàm xác nhận và đóng bảng
   const handleConfirm = () => {
     setSelectedGuestCount(guestCount);
+    setGuest(guestCount);
     setShowGuestBox(false); // Đóng DateRangePicker
   };
   return (
     <div className="relative">
       <div className="flex flex-col ">
-        <label className="mb-1 text-md font-thin" htmlFor="">
+        <label className="mb-1 text-md font-thin hidden lg:block" htmlFor="">
           Khách
         </label>
         <input

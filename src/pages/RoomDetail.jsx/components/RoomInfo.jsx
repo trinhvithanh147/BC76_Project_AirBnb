@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { phongService } from "../../../services/phong.service";
 import { useState } from "react";
 import { binhLuanService } from "../../../services/binhLuan.service";
+import RoomBooking from "./RoomBooking";
 
 const RoomInfo = ({ roomName, guest, bedroom, bed, bathroom, roomDetail }) => {
   const [comment, setComment] = useState([]);
@@ -38,7 +39,7 @@ const RoomInfo = ({ roomName, guest, bedroom, bed, bathroom, roomDetail }) => {
   }, [roomDetail.id]);
   return (
     <div className="container">
-      <div className="my-8 grid grid-cols-2 gap-6">
+      <div className="my-8 grid grid-cols-1 lg:grid-cols-2 gap-6 relative">
         {/* thông tin phòng  */}
         <div>
           <div className="space-y-2 pb-4 ">
@@ -110,7 +111,7 @@ const RoomInfo = ({ roomName, guest, bedroom, bed, bathroom, roomDetail }) => {
           </div>
         </div>
         {/* đặt phòng & thanh toán  */}
-        <div>payment</div>
+        <RoomBooking roomDetail={roomDetail} roomComment={comment} />
       </div>
       {/* bình luận  */}
       <div className="py-5 border-t-2 border-b-2">
@@ -120,7 +121,7 @@ const RoomInfo = ({ roomName, guest, bedroom, bed, bathroom, roomDetail }) => {
       </div>
       <div>
         <h1 className="text-2xl font-bold py-4">Bình luận</h1>
-        <div className="grid grid-cols-2 h-80 overflow-y-scroll gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 h-80 overflow-y-scroll gap-4">
           {comment.map((item, index) => {
             return (
               <div key={index} className="flex flex-col space-y-2 ">

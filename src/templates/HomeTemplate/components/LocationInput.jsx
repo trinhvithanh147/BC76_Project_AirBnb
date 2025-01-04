@@ -39,7 +39,9 @@ const LocationInput = ({ setIdLocation }) => {
         }}
         className="flex flex-col cursor-pointer"
       >
-        <label className="mb-1 text-md font-thin">Địa điểm</label>
+        <label className="mb-1 text-md font-thin md:hidden lg:block">
+          Địa điểm
+        </label>
         <input
           readOnly
           type="text"
@@ -49,7 +51,7 @@ const LocationInput = ({ setIdLocation }) => {
         />
       </div>
       {isOpenBox && (
-        <div className="absolute top-full mt-2 w-full bg-white border border-gray-300 rounded-md shadow-lg">
+        <div className="absolute top-full mt-2 w-full bg-white z-50 border border-gray-300 rounded-md shadow-lg">
           <div className="grid grid-cols-3 gap-3">
             <div
               key={noneItem.id}

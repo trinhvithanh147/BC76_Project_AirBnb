@@ -2,6 +2,7 @@ import { Route, useRoutes } from "react-router-dom";
 import { pathDefault } from "./common/path";
 import { createContext } from "react";
 import { Bounce, toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import HomeTemplate from "./templates/HomeTemplate/HomeTemplate";
 import HomePage from "./pages/HomePage/HomePage";
 import SignIn from "./pages/SignIn/SignIn";
@@ -46,13 +47,25 @@ function App() {
   // B2: Tạo dữ liệu muốn lưu
   const [idLocation, setIdLocation] = useState("");
   const [nameLocation, setNameLocation] = useState("");
+  const [checkIn, setCheckIn] = useState("");
+  const [checkOut, setCheckOut] = useState("");
+  const [guest, setGuest] = useState(1);
   // B3: Tạo mảng chứa dữ liệu
   const value = {
     idLocation,
     setIdLocation,
     nameLocation,
     setNameLocation,
+    checkIn,
+    setCheckIn,
+    checkOut,
+    setCheckOut,
+    guest,
+    setGuest,
   };
+  console.log(checkIn);
+  console.log(checkOut);
+
   const routes = useRoutes(arrRoutes);
   const handleNotification = (type, content, timeClose = 3000) => {
     toast[type](content, {

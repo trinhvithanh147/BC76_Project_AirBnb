@@ -18,7 +18,7 @@ const RoomItem = ({
       onClick={() => {
         navigate(`/room-detail/${roomCode}`);
       }}
-      className="grid grid-cols-2 gap-5 hover:cursor-pointer"
+      className="grid grid-cols-1 lg:grid-cols-2 gap-5 hover:cursor-pointer"
     >
       <div className="w-full">
         <img

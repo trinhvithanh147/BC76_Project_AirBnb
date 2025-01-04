@@ -80,7 +80,7 @@ const HomePage = () => {
   return (
     <div className="container">
       <div className="py-20">
-        <div className="grid grid-cols-4 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
           {arrLocation.map((item, index) => {
             return (
               <div
@@ -100,7 +100,7 @@ const HomePage = () => {
         </div>
         <div className="mt-10">
           <h1 className="text-3xl font-bold mb-5">Ở bất cứ nơi đâu</h1>
-          <div className="grid grid-cols-4 gap-5  ">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5  ">
             {arrUltilities.map((item, index) => {
               return (
                 <div className="cursor-pointer hover:shadow-lg duration-500">

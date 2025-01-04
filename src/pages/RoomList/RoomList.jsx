@@ -35,7 +35,7 @@ const RoomList = () => {
   console.log(roomList);
   return (
     <div className="container">
-      <div className="py-10 grid grid-cols-2 gap-5">
+      <div className="py-10 grid grid-cols-1 lg:grid-cols-2 gap-5">
         {/* Left : Roomlist  */}
         <div className="flex flex-col space-y-4">
           {/* Title  */}
