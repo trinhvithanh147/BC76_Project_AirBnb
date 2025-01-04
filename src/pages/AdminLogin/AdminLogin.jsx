@@ -47,7 +47,7 @@ const AdminLogin = () => {
               }, 1500);
             }
           })
-          
+
           .catch((err) => {
             console.log(err);
             handleNotification("error", err.response.data.content);

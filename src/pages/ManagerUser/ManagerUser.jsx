@@ -1,19 +1,64 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { nguoiDungService } from "../../services/nguoiDung.service";
-import { Avatar, Button, Modal, Popconfirm, Table, Tag } from "antd";
+import { Avatar, Button, Input, Modal, Popconfirm, Table, Tag } from "antd";
 import { NotificationContext } from "../../App";
-import FormUpdateUser from "./components/FormUpdateUser";
+import FormUpdateUser from "./components/FormUpdateUser/FormUpdateUser";
+import InputCustome from "../../components/InputCustome/InputCustome";
+import FormAddUser from "./components/FormAddUser/FormAddUser";
+
 const ManagerUser = () => {
+  // const [isModalOpen, setIsModalOpen] = useState(false);
   const [listNguoiDung, setListNguoiDung] = useState([]);
+  const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [searchID, setSearchID] = useState("");
+  const [searchName, setSearchName] = useState("");
+  const [filteredNguoiDung, setFilteredNguoiDung] = useState([]);
   const [formData, setFormData] = useState();
   const handleNotification = useContext(NotificationContext);
+
+  const handleSearchID = (e) => {
+    const value = e.target.value;
+    setSearchID(value);
+    if (value) {
+      const filteredList = listNguoiDung.filter((item) => {
+        return item.id.toString().includes(value);
+      });
+      setFilteredNguoiDung(filteredList);
+    } else {
+      setFilteredNguoiDung(listNguoiDung);
+    }
+  };
+  const handleSearchName = (e) => {
+    const value = e.target.value;
+    setSearchName(value);
+    if (value) {
+      const filteredList = listNguoiDung.filter((item) => {
+        return item.name.toString().includes(value);
+      });
+      setFilteredNguoiDung(filteredList);
+    } else {
+      setFilteredNguoiDung(listNguoiDung);
+    }
+  };
+  useEffect(() => {
+    nguoiDungService
+      .timKiemTenNguoiDung(searchName)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   const layDanhSachNguoiDung = () => {
     nguoiDungService
       .layDanhSachNguoiDung()
       .then((res) => {
         console.log(res);
         setListNguoiDung(res.data.content);
+        setFilteredNguoiDung(res.data.content);
       })
       .catch((err) => {
         console.log(err);
@@ -59,7 +104,9 @@ const ManagerUser = () => {
         return value ? (
           <span className="text-green-500 font-medium">{value}</span>
         ) : (
-          <span className="text-red-500 font-medium">Undefined</span>
+          <span className="text-red-500 font-medium">
+            Phone number not found
+          </span>
         );
       },
     },
@@ -69,18 +116,17 @@ const ManagerUser = () => {
       key: "6",
       render: (value, record) => {
         return value ? (
-          <img
-            src={value}
-            alt="avatar"
-            className="w-12 h-12 rounded-full border-2 border-blue-300 shadow-sm"
-          />
+          <Avatar src={value} className="w-8" />
+        ) : record.role == "ADMIN" ? (
+          record.gender == true ? (
+            <Avatar src="/profileAdmin.png" className="w-8" />
+          ) : (
+            <Avatar src="/grilAdmin.png" className="w-8" />
+          )
+        ) : record.gender == true ? (
+          <Avatar src="/userMan.png" className="w-8" />
         ) : (
-          <Avatar
-            size={48}
-            className="bg-gradient-to-r from-blue-500 to-purple-500 text-white font-bold"
-          >
-            {record.name[0].toUpperCase()}
-          </Avatar>
+          <Avatar src="/userGirl.png" className="w-8" />
         );
       },
     },
@@ -99,7 +145,7 @@ const ManagerUser = () => {
           </Tag>
         ) : (
           <Tag className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white px-4 py-1 rounded-full font-medium">
-            {value  && "UNDERFIND"}
+            {value && "Invalid role"}
           </Tag>
         );
       },
@@ -142,7 +188,7 @@ const ManagerUser = () => {
               <Button
                 onClick={() => {
                   setFormData(record);
-                  setIsModalOpen(true);
+                  setIsModalUpdateOpen(true);
                 }}
               >
                 Edit Profile
@@ -153,32 +199,79 @@ const ManagerUser = () => {
       },
     },
   ];
-  console.log(formData);
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 p-8">
-      <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">
-        Manager User
-      </h1>
-      <div className="bg-white shadow-xl rounded-lg p-6">
-        <Table
-          dataSource={listNguoiDung}
-          columns={columns}
-          className="border border-gray-300 rounded-lg"
-          rowClassName="hover:bg-gray-100"
-        />
-      </div>
+    listNguoiDung && (
+      <div className="min-h-screen ">
+        <div className="bg-white p-6 space-y-5">
+          <div className="flex space-x-5">
+            <Button
+              onClick={() => {
+                setIsModalOpen(true);
+              }}
+            >
+              Add New User
+            </Button>
+            <div className="flex items-center gap-x-2">
+              <InputCustome
+                type="number"
+                placeHolder={"Searching for customer with ID"}
+                handleChange={handleSearchID}
+                value={searchID}
+                className="border border-solid border-[#eff2ff] bg-white text-[#61748f] rounded-[0.3rem] min-w-[20rem] "
+              />
+              <span>or</span>
+              <InputCustome
+                type="text"
+                placeHolder={"Searching for a customer by name"}
+                handleChange={handleSearchName}
+                value={searchName}
+                className="border border-solid border-[#eff2ff] bg-white text-[#61748f] rounded-[0.3rem] min-w-[20rem] "
+              />
+              <span>(Choose one of the two)</span>
+            </div>
+          </div>
+          <Table
+            dataSource={filteredNguoiDung}
+            columns={columns}
+            className="border border-gray-300 rounded-lg"
+            rowClassName="hover:bg-gray-100"
+          />
+        </div>
 
-      <Modal
-        title="Basic Modal"
-        open={isModalOpen}
-        footer={null}
-        onCancel={() => {
-          setIsModalOpen(false);
-        }}
-      >
-        <FormUpdateUser handleCloseModal ={()=>{setIsModalOpen(false)}}  formData={formData} layDanhSachNguoiDung={layDanhSachNguoiDung}/>
-      </Modal>
-    </div>
+        <Modal
+          title="Edit Profile"
+          className=""
+          open={isModalUpdateOpen}
+          footer={null}
+          onCancel={() => {
+            setIsModalUpdateOpen(false);
+          }}
+        >
+          <FormUpdateUser
+            handleCloseModal={() => {
+              setIsModalUpdateOpen(false);
+            }}
+            formData={formData}
+            layDanhSachNguoiDung={layDanhSachNguoiDung}
+          />
+        </Modal>
+        <Modal
+          title="Add New User"
+          open={isModalOpen}
+          footer={null}
+          onCancel={() => {
+            setIsModalOpen(false);
+          }}
+        >
+          <FormAddUser
+            handleCloseModal={() => {
+              setIsModalOpen(false);
+            }}
+            layDanhSachNguoiDung={layDanhSachNguoiDung}
+          />
+        </Modal>
+      </div>
+    )
   );
 };
 
