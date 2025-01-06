@@ -203,8 +203,8 @@ const AdminTemplate = () => {
     },
   ];
   return (
-    <Layout className="min-h-screen layoutAdmin">
-      <Sider trigger={null} collapsible collapsed={collapsed}>
+    <Layout className="min-h-screen layoutAdmin ">
+      <Sider trigger={null} collapsible collapsed={collapsed} className="Sider">
         <div className="demo-logo-vertical" />
         {collapsed ? (
           <div className="flex justify-center py-4">
@@ -222,6 +222,7 @@ const AdminTemplate = () => {
           theme="dark"
           mode="inline"
           defaultSelectedKeys={["1"]}
+          className="text-white"
           items={[
             {
               key: "1",

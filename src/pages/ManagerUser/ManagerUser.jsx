@@ -5,6 +5,7 @@ import { NotificationContext } from "../../App";
 import FormUpdateUser from "./components/FormUpdateUser/FormUpdateUser";
 import InputCustome from "../../components/InputCustome/InputCustome";
 import FormAddUser from "./components/FormAddUser/FormAddUser";
+import { phongService } from "../../services/phong.service";
 
 const ManagerUser = () => {
   // const [isModalOpen, setIsModalOpen] = useState(false);
@@ -181,17 +182,20 @@ const ManagerUser = () => {
                 onCancel={() => {}}
               >
                 {" "}
-                <Button>Delete User</Button>
+                <Button className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition duration-200">
+                  Delete
+                </Button>
               </Popconfirm>
             </div>
             <div className="b_eidt">
               <Button
+                className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-200"
                 onClick={() => {
                   setFormData(record);
                   setIsModalUpdateOpen(true);
                 }}
               >
-                Edit Profile
+                Edit
               </Button>
             </div>
           </div>
@@ -214,7 +218,7 @@ const ManagerUser = () => {
             <div className="flex items-center gap-x-2">
               <InputCustome
                 type="number"
-                placeHolder={"Searching for customer with ID"}
+                placeHolder={"Search Customer by ID"}
                 handleChange={handleSearchID}
                 value={searchID}
                 className="border border-solid border-[#eff2ff] bg-white text-[#61748f] rounded-[0.3rem] min-w-[20rem] "
@@ -222,7 +226,7 @@ const ManagerUser = () => {
               <span>or</span>
               <InputCustome
                 type="text"
-                placeHolder={"Searching for a customer by name"}
+                placeHolder={"Search Customer by Name"}
                 handleChange={handleSearchName}
                 value={searchName}
                 className="border border-solid border-[#eff2ff] bg-white text-[#61748f] rounded-[0.3rem] min-w-[20rem] "

@@ -1,15 +1,19 @@
 import { Button, DatePicker, Select } from "antd";
 import { useFormik } from "formik";
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import InputCustome from "../../../../components/InputCustome/InputCustome";
 import { nguoiDungService } from "../../../../services/nguoiDung.service";
 import * as Yup from "yup";
+import dayjs from "dayjs";
+import { NotificationContext } from "../../../../App";
 const FormUpdateUser = ({
   formData,
   layDanhSachNguoiDung,
   handleCloseModal,
 }) => {
+  const handleNotification = useContext(NotificationContext);
   const {
+    errors,
     handleChange,
     handleBlur,
     values,
@@ -51,9 +55,11 @@ const FormUpdateUser = ({
           layDanhSachNguoiDung();
           handleCloseModal();
           resetForm();
+          handleNotification("success", "Cập nhật thành công", 1500);
         })
         .catch((err) => {
           console.log(err);
+          handleNotification("error", "Cập nhật thất bại", 1500);
         });
     },
   });
@@ -89,6 +95,7 @@ const FormUpdateUser = ({
         handleBlur={handleBlur}
         value={values.name}
         touched={touched.name}
+        error={errors.name}
       />
       <InputCustome
         labelContent={"Email"}
@@ -98,6 +105,7 @@ const FormUpdateUser = ({
         handleBlur={handleBlur}
         value={values.email}
         touched={touched.email}
+        error={errors.email}
       />
       <InputCustome
         labelContent={"Phone"}
@@ -107,6 +115,7 @@ const FormUpdateUser = ({
         handleBlur={handleBlur}
         value={values.phone}
         touched={touched.phone}
+        error={errors.phone}
       />
       <div className="datePicker">
         <label htmlFor="">Date of Birth</label>
@@ -118,7 +127,11 @@ const FormUpdateUser = ({
             console.log(dateString);
             setFieldValue("birthday", dateString);
           }}
+          value={values.birthday ? dayjs(values.birthday) : null}
         />
+        {touched.birthday && errors.birthday ? (
+          <p className="text-red-500 mt-1">{errors.birthday}</p>
+        ) : null}
       </div>
       <div className="gender">
         <label htmlFor="">Gender: </label>

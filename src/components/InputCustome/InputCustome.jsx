@@ -25,11 +25,10 @@ const InputCustome = ({
         className={className}
         placeholder={placeHolder}
         value={value}
-        // touched={touched}
         onBlur={handleBlur}
         onChange={handleChange}
       />
-      {/* {touched && error ? <p className='text-red-500 mt-1'>{error}</p>: null} */}
+      {touched && error ? <p className="text-red-500 mt-1">{error}</p> : null}
     </div>
   );
 };
