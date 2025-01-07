@@ -454,7 +454,7 @@ const AdminTemplate = () => {
                     </a>
                   </Dropdown>
                 </div>
-                <div className="full-screen">
+                <div className="setting pr-2">
                   <Icon.settingAdmin className="border border-sold border-[#e2e6f1] font-[1rem] p-[0.4rem] w-[2rem] h-[2rem] rounded-[0.3rem] cursor-pointer" />
                 </div>
               </div>
