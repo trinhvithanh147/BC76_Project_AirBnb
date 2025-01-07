@@ -1,0 +1,45 @@
+/* Wrapper cho các nút prev và next */
+.slick-prev,
+.slick-next {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+}
+
+/* Căn chỉnh nút prev */
+.slick-prev {
+  left: 10px; /* Khoảng cách bên trái */
+}
+
+/* Căn chỉnh nút next */
+.slick-next {
+  right: 10px; /* Khoảng cách bên phải */
+}
+
+/* Các nút điều hướng */
+.custom-prev,
+.custom-next {
+  //   background-color: #fff;
+  //   border: 1px solid #ccc;
+  //   border-radius: 50%;
+  //   line-height: 10px;
+  //   font-size: 18px;
+  //   padding: 10px;
+
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.custom-prev:hover,
+.custom-next:hover {
+  background-color: #ddd;
+}
+
+.slick-prev,
+.slick-next {
+  z-index: 100; /* Đảm bảo các nút có độ ưu tiên hiển thị cao */
+}

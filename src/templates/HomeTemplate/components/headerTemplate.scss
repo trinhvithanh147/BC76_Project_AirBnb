@@ -1,0 +1,17 @@
+.ant-btn-disabled {
+  color: unset;
+  border-color: unset;
+  background: unset;
+}
+.item-active {
+  @apply text-[#FE6B6E];
+}
+
+.ant-dropdown {
+  .ant-dropdown-menu {
+    padding: 0;
+    .ant-dropdown-menu-item {
+      padding: 0;
+    }
+  }
+}
