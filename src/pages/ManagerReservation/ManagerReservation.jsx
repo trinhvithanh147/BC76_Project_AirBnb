@@ -97,14 +97,14 @@ const ManagerReservation = () => {
                 onCancel={() => {}}
               >
                 {" "}
-                <Button className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition duration-200">
+                <Button className="bg-gradient-to-r from-red-500 to-red-700 text-white px-6 py-2 rounded-lg shadow-md hover:from-red-600 hover:to-red-800 transition-all duration-300">
                   Delete
                 </Button>
               </Popconfirm>
             </div>
             <div className="b_eidt">
               <Button
-                className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-200"
+                className="bg-gradient-to-r from-green-500 to-green-700 text-white px-6 py-2 rounded-lg shadow-md hover:from-green-600 hover:to-green-800 transition-all duration-300"
                 onClick={() => {
                   setIsModalDatPhongOpen(true);
                   setFormData(record);
@@ -120,63 +120,61 @@ const ManagerReservation = () => {
   ];
   return (
     <>
-      <div className="p-6 space-y-5">
-        <div className="flex space-x-5">
-          <Button
-            onClick={() => {
-              setIsModalNewReservation(true);
-            }}
-          >
-            Add New Room
-          </Button>
-          <div className="flex items-center gap-x-2">
-            <InputCustome
-              type="number"
-              placeHolder={"Search Reservation by ID"}
-              className="border border-solid border-[#eff2ff] bg-white text-[#61748f] rounded-[0.3rem] min-w-[20rem] "
-              handleChange={handleSearchIDRoom}
-              value={listRoomDaDat}
-            />
+      <div className="min-h-screen overflow-x-scroll lg:overflow-hidden">
+        <div className="p-6 space-y-5 ">
+          <div className="flex space-x-5">
+            <Button
+              className="bg-gradient-to-r from-blue-500 to-blue-700 text-white px-6 py-2 rounded-lg shadow-md hover:from-blue-600 hover:to-blue-800 transition-all duration-300"
+              onClick={() => {
+                setIsModalNewReservation(true);
+              }}
+            >
+              Add New Room
+            </Button>
+            <div className="flex items-center gap-x-2">
+              <InputCustome
+                type="number"
+                placeHolder={"Search Reservation by ID"}
+                className="border border-solid border-[#eff2ff] bg-white text-[#61748f] rounded-[0.3rem] min-w-[20rem] "
+                handleChange={handleSearchIDRoom}
+                value={listRoomDaDat}
+              />
+            </div>
           </div>
+          <Table dataSource={filteredRoomDaDat} columns={columns} />
         </div>
-        <Table
-          dataSource={filteredRoomDaDat}
-          columns={columns}
-          className="border border-gray-300 rounded-lg"
-          rowClassName="hover:bg-gray-100"
-        />
-      </div>
-      <Modal
-        title="Booking"
-        open={isModalDatPhongOpen}
-        footer={null}
-        onCancel={() => {
-          setIsModalDatPhongOpen(false);
-        }}
-      >
-        <FormUpdateReservation
-          layListDatPhongService={layListDatPhongService}
-          formData={formData}
-          handleCloseModal={() => {
+        <Modal
+          title="Booking"
+          open={isModalDatPhongOpen}
+          footer={null}
+          onCancel={() => {
             setIsModalDatPhongOpen(false);
           }}
-        />
-      </Modal>
-      <Modal
-        title="Add New Reservation"
-        open={isModalNewReservation}
-        footer={null}
-        onCancel={() => {
-          setIsModalNewReservation(false);
-        }}
-      >
-        <FormAddReservation
-          handleCloseModal={() => {
+        >
+          <FormUpdateReservation
+            layListDatPhongService={layListDatPhongService}
+            formData={formData}
+            handleCloseModal={() => {
+              setIsModalDatPhongOpen(false);
+            }}
+          />
+        </Modal>
+        <Modal
+          title="Add New Reservation"
+          open={isModalNewReservation}
+          footer={null}
+          onCancel={() => {
             setIsModalNewReservation(false);
           }}
-          layListDatPhongService={layListDatPhongService}
-        />
-      </Modal>
+        >
+          <FormAddReservation
+            handleCloseModal={() => {
+              setIsModalNewReservation(false);
+            }}
+            layListDatPhongService={layListDatPhongService}
+          />
+        </Modal>
+      </div>
     </>
   );
 };

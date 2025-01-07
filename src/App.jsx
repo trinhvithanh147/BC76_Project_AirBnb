@@ -11,6 +11,7 @@ import ManagerComments from "./pages/ManagerComments/ManagerComments";
 import ManagerRoom from "./pages/ManagerRoom/ManagerRoom";
 import ManagerLocation from "./pages/ManagerLocation/ManagerLocation";
 import AdminLogin from "./pages/AdminLogin/AdminLogin";
+import ProfileAdmin from "./pages/ProfileAdmin/ProfileAdmin";
 export const NotificationContext = createContext();
 const arrRoutes = [
   {
@@ -21,10 +22,15 @@ const arrRoutes = [
     path: pathDefault.adminLogin,
     element: <AdminLogin />,
   },
+
   {
     path: pathDefault.admin,
     element: <AdminTemplate />,
     children: [
+      {
+        path: pathDefault.profileAdmin,
+        element: <ProfileAdmin />,
+      },
       {
         index: true,
         element: <ManagerUser />,

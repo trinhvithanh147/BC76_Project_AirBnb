@@ -44,6 +44,7 @@ const AdminLogin = () => {
               handleNotification("success", "Đăng nhập thành công", 1500);
               setTimeout(() => {
                 navigate(pathDefault.admin);
+                localStorage.getItem("userInfo");
               }, 1500);
             }
           })
@@ -65,15 +66,16 @@ const AdminLogin = () => {
     <section className="h-screen bg-[#F1F7FE]">
       <div className="flex justify-center items-center h-full">
         <div className="w-[1200px] h-[700px] bg-white rounded-xl p-10 shadow-2xl">
-          <div className="grid grid-cols-2 flex-col h-full ">
-            <div className="col-span-1  border-r-2 ">
+          <div className="grid grid-cols-2 flex-col h-full justify-center items-center lg:items-start">
+            <div className="lg:col-span-1 hidden lg:flex  border-r-2 h-full">
               <DotLottieReact
-                src="src\assets\animation\admin-login.json"
+                src="src/assets/animation/admin-login.json"
                 loop
                 autoplay
+                onLoaded={() => console.log("Animation loaded!")}
               />
             </div>
-            <div className="col-span-1 pt-14 px-16">
+            <div className="lg:col-span-1 col-span-2 p-0 lg:pt-14 lg:px-16 h-full lg:h-auto">
               <div className="flex justify-between flex-col h-full">
                 <div>
                   <div className="flex items-center justify-center mb-5">

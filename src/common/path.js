@@ -7,4 +7,5 @@ export const pathDefault = {
   managerRoom: "/admin/manager-room",
   managerLocation: "/admin/manager-location",
   adminLogin: "/admin-login",
+  profileAdmin: "/admin/admin-profile",
 };

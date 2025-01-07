@@ -110,14 +110,14 @@ const ManagerLocation = () => {
                 onCancel={() => {}}
               >
                 {" "}
-                <Button className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition duration-200">
+                <Button className="bg-gradient-to-r from-red-500 to-red-700 text-white px-6 py-2 rounded-lg shadow-md hover:from-red-600 hover:to-red-800 transition-all duration-300">
                   Delete
                 </Button>
               </Popconfirm>
             </div>
             <div className="b_eidt">
               <Button
-                className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-200"
+                className="bg-gradient-to-r from-green-500 to-green-700 text-white px-6 py-2 rounded-lg shadow-md hover:from-green-600 hover:to-green-800 transition-all duration-300"
                 onClick={() => {
                   setIsModalUpdateOpen(true);
                   setDataForm(record);
@@ -132,10 +132,11 @@ const ManagerLocation = () => {
     },
   ];
   return (
-    <div className="min-h-screen ">
+    <div className="min-h-screen overflow-x-scroll lg:overflow-hidden">
       <div className="bg-white p-6 space-y-5">
         <div className="flex space-x-5">
           <Button
+            className="bg-gradient-to-r from-blue-500 to-blue-700 text-white px-6 py-2 rounded-lg shadow-md hover:from-blue-600 hover:to-blue-800 transition-all duration-300"
             onClick={() => {
               setIsModalAddLocation(true);
             }}
@@ -152,12 +153,7 @@ const ManagerLocation = () => {
             />
           </div>
         </div>
-        <Table
-          dataSource={filteredLocation}
-          columns={columns}
-          className="border border-gray-300 rounded-lg"
-          rowClassName="hover:bg-gray-100"
-        />
+        <Table dataSource={filteredLocation} columns={columns} />
       </div>
 
       <Modal
