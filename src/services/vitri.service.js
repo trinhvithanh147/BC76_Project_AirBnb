@@ -7,4 +7,27 @@ export const viTriService = {
   getViTriById: (id) => {
     return http.get(`/vi-tri/${id}`);
   },
+  vitri: () => {
+    return http.get(`/vi-tri`);
+  },
+  capNhatviTri: (id, values) => {
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    const token = userInfo?.token;
+    console.log(token);
+    return http.put(`/vi-tri/${id}`, values, {
+      headers: {
+        token: token,
+      },
+    });
+  },
+  themviTri: (values) => {
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    const token = userInfo?.token;
+    console.log(token);
+    return http.put(`/vi-tri/${values}`, {
+      headers: {
+        token: token,
+      },
+    });
+  },
 };
