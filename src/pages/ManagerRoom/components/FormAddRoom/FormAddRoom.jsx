@@ -3,9 +3,9 @@ import InputCustome from "../../../../components/InputCustome/InputCustome";
 import { useFormik } from "formik";
 import { Button, Checkbox } from "antd";
 import * as Yup from "yup";
-import { vitriService } from "../../../../services/vitri.service";
 import { phongService } from "../../../../services/phong.service";
 import { NotificationContext } from "../../../../App";
+import { viTriService } from "../../../../services/viTri.service";
 const FormAddRoom = ({ handleCloseModal, layListPhong }) => {
   const [listViTri, setListViTri] = useState([]);
   const handleNotification = useContext(NotificationContext);
@@ -72,7 +72,7 @@ const FormAddRoom = ({ handleCloseModal, layListPhong }) => {
     },
   });
   useEffect(() => {
-    vitriService
+    viTriService
       .vitri()
       .then((res) => {
         console.log(res);

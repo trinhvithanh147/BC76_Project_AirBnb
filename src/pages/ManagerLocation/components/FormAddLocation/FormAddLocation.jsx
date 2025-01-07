@@ -3,8 +3,8 @@ import { useFormik } from "formik";
 import React, { useContext } from "react";
 import * as Yup from "yup";
 import InputCustome from "../../../../components/InputCustome/InputCustome";
-import { vitriService } from "../../../../services/vitri.service";
 import { NotificationContext } from "../../../../App";
+import { viTriService } from "../../../../services/viTri.service";
 const FormAddLocation = ({ handleCloseModal, layListViTri }) => {
   const handleNotification = useContext(NotificationContext);
   const {
@@ -30,7 +30,7 @@ const FormAddLocation = ({ handleCloseModal, layListViTri }) => {
       hinhAnh: Yup.string().required("Please do not leave it blank"),
     }),
     onSubmit: (values) => {
-      vitriService
+      viTriService
         .themviTri(values)
         .then((res) => {
           console.log(res);

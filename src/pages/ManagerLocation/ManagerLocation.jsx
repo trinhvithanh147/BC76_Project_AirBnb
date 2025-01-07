@@ -1,10 +1,10 @@
 import { Button, Modal, Popconfirm, Table } from "antd";
 import React, { useContext, useEffect, useState } from "react";
-import { vitriService } from "../../services/vitri.service";
 import InputCustome from "../../components/InputCustome/InputCustome";
 import FormUpdateLocation from "./components/FormUpdateLocation/FormUpdateLocation";
 import FormAddLocation from "./components/FormAddLocation/FormAddLocation";
 import { NotificationContext } from "../../App";
+import { viTriService } from "../../services/viTri.service";
 
 const ManagerLocation = () => {
   const [isModalAddLocation, setIsModalAddLocation] = useState(false);
@@ -27,7 +27,7 @@ const ManagerLocation = () => {
     }
   };
   const layListViTri = () => {
-    vitriService
+    viTriService
       .vitri()
       .then((res) => {
         console.log(res);

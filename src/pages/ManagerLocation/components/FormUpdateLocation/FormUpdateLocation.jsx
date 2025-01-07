@@ -3,8 +3,8 @@ import React, { useContext, useEffect } from "react";
 import * as Yup from "yup";
 import InputCustome from "../../../../components/InputCustome/InputCustome";
 import { Button } from "antd";
-import { vitriService } from "../../../../services/vitri.service";
 import { NotificationContext } from "../../../../App";
+import { viTriService } from "../../../../services/viTri.service";
 const FormUpdateLocation = ({ dataForm, handleCloseModal, layListViTri }) => {
   console.log(dataForm);
   const handleNotification = useContext(NotificationContext);
@@ -32,7 +32,7 @@ const FormUpdateLocation = ({ dataForm, handleCloseModal, layListViTri }) => {
       hinhAnh: Yup.string().required("Please do not leave it blank"),
     }),
     onSubmit: (values) => {
-      vitriService
+      viTriService
         .capNhatviTri(values.id, values)
         .then((res) => {
           console.log(res);

@@ -18,6 +18,7 @@ import {
 import { pathDefault } from "../../common/path";
 import Icon from "../../components/Icon";
 import "./adminTemplate.scss";
+
 const { Header, Sider, Content } = Layout;
 
 const AdminTemplate = () => {
@@ -38,7 +39,6 @@ const AdminTemplate = () => {
     }
   }, []);
   const [collapsed, setCollapsed] = useState(false);
-
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
@@ -50,11 +50,17 @@ const AdminTemplate = () => {
   const item = [
     {
       label: (
-        <a target="_blank" rel="noopener noreferrer">
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          className="p-4 flex flex-col"
+        >
           <span className="block text-center text-[#212b37] text-[0.85rem] font-normal poppins-regular">
             Hello {admin.name && admin.name}{" "}
           </span>
-          <span className="text-[#6e829f] text-[0.75rem]">UI/UX Designer</span>
+          <span className="text-[#6e829f] text-[0.75rem] text-center">
+            UI/UX Designer
+          </span>
         </a>
       ),
       key: "0",
@@ -65,7 +71,7 @@ const AdminTemplate = () => {
         <a
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center"
+          className="flex items-center pl-6 py-2"
           onClick={() => {
             handleLogOut();
           }}
@@ -83,16 +89,18 @@ const AdminTemplate = () => {
     {
       label: (
         <>
-          <span className="w-[1.25rem] h-[1.25rem] mr-2">
-            <img
-              src="/us_flag.jpg"
-              alt=""
-              className="w-full h-full rounded-[50%]"
-            />
-          </span>
-          <span className="text-[0.85rem] font-normal text-[#212b37]">
-            English
-          </span>
+          <div className="flex items-center p-3">
+            <span className="w-[1.25rem] h-[1.25rem] mr-2">
+              <img
+                src="/us_flag.jpg"
+                alt=""
+                className="w-full h-full rounded-[50%]"
+              />
+            </span>
+            <span className="text-[0.85rem] font-normal text-[#212b37]">
+              English
+            </span>
+          </div>
         </>
       ),
       key: "0",
@@ -100,13 +108,15 @@ const AdminTemplate = () => {
     {
       label: (
         <>
-          <span className="w-[1.25rem] h-[1.25rem] mr-2">
-            <img src="/spain_flag.jpg" alt="" />
-          </span>
-          <span className="text-[0.85rem] font-normal text-[#212b37]">
-            {" "}
-            español{" "}
-          </span>
+          <div className="flex items-center p-3">
+            <span className="w-[1.25rem] h-[1.25rem] mr-2">
+              <img src="/spain_flag.jpg" alt="" />
+            </span>
+            <span className="text-[0.85rem] font-normal text-[#212b37]">
+              {" "}
+              español{" "}
+            </span>
+          </div>
         </>
       ),
       key: "1",
@@ -114,13 +124,15 @@ const AdminTemplate = () => {
     {
       label: (
         <>
-          <span className="w-[1.25rem] h-[1.25rem] mr-2">
-            <img src="/french_flag.jpg" alt="" />
-          </span>
-          <span className="text-[0.85rem] font-normal text-[#212b37]">
-            {" "}
-            français{" "}
-          </span>
+          <div className="flex items-center p-3">
+            <span className="w-[1.25rem] h-[1.25rem] mr-2">
+              <img src="/french_flag.jpg" alt="" />
+            </span>
+            <span className="text-[0.85rem] font-normal text-[#212b37]">
+              {" "}
+              français{" "}
+            </span>
+          </div>
         </>
       ),
       key: "2",
@@ -128,13 +140,15 @@ const AdminTemplate = () => {
     {
       label: (
         <>
-          <span className="w-[1.25rem] h-[1.25rem] mr-2">
-            <img src="/uae_flag.jpg" alt="" />
-          </span>
-          <span className="text-[0.85rem] font-normal text-[#212b37]">
-            {" "}
-            عربي{" "}
-          </span>
+          <div className="flex items-center p-3">
+            <span className="w-[1.25rem] h-[1.25rem] mr-2">
+              <img src="/uae_flag.jpg" alt="" />
+            </span>
+            <span className="text-[0.85rem] font-normal text-[#212b37]">
+              {" "}
+              عربي{" "}
+            </span>
+          </div>
         </>
       ),
       key: "3",
@@ -142,13 +156,15 @@ const AdminTemplate = () => {
     {
       label: (
         <>
-          <span className="w-[1.25rem] h-[1.25rem] mr-2">
-            <img src="/germany_flag.jpg" alt="" />
-          </span>
-          <span className="text-[0.85rem] font-normal text-[#212b37]">
-            {" "}
-            Deutsch{" "}
-          </span>
+          <div className="flex items-center p-3">
+            <span className="w-[1.25rem] h-[1.25rem] mr-2">
+              <img src="/germany_flag.jpg" alt="" />
+            </span>
+            <span className="text-[0.85rem] font-normal text-[#212b37]">
+              {" "}
+              Deutsch{" "}
+            </span>
+          </div>
         </>
       ),
       key: "4",
@@ -156,13 +172,15 @@ const AdminTemplate = () => {
     {
       label: (
         <>
-          <span className="w-[1.25rem] h-[1.25rem] mr-2">
-            <img src="/china_flag.jpg" alt="" />
-          </span>
-          <span className="text-[0.85rem] font-normal text-[#212b37]">
-            {" "}
-            中国人{" "}
-          </span>
+          <div className="flex items-center p-3">
+            <span className="w-[1.25rem] h-[1.25rem] mr-2">
+              <img src="/china_flag.jpg" alt="" />
+            </span>
+            <span className="text-[0.85rem] font-normal text-[#212b37]">
+              {" "}
+              中国人{" "}
+            </span>
+          </div>
         </>
       ),
       key: "5",
@@ -170,13 +188,15 @@ const AdminTemplate = () => {
     {
       label: (
         <>
-          <span className="w-[1.25rem] h-[1.25rem] mr-2">
-            <img src="/italy_flag.jpg" alt="" />
-          </span>
-          <span className="text-[0.85rem] font-normal text-[#212b37]">
-            {" "}
-            Italiano{" "}
-          </span>
+          <div className="flex items-center p-3">
+            <span className="w-[1.25rem] h-[1.25rem] mr-2">
+              <img src="/italy_flag.jpg" alt="" />
+            </span>
+            <span className="text-[0.85rem] font-normal text-[#212b37]">
+              {" "}
+              Italiano{" "}
+            </span>
+          </div>
         </>
       ),
       key: "6",
@@ -184,13 +204,15 @@ const AdminTemplate = () => {
     {
       label: (
         <>
-          <span className="w-[1.25rem] h-[1.25rem] mr-2">
-            <img src="/russia_flag.jpg" alt="" />
-          </span>
-          <span className="text-[0.85rem] font-normal text-[#212b37]">
-            {" "}
-            Русский{" "}
-          </span>
+          <div className="flex items-center p-3">
+            <span className="w-[1.25rem] h-[1.25rem] mr-2">
+              <img src="/russia_flag.jpg" alt="" />
+            </span>
+            <span className="text-[0.85rem] font-normal text-[#212b37]">
+              {" "}
+              Русский{" "}
+            </span>
+          </div>
         </>
       ),
       key: "7",
@@ -363,6 +385,7 @@ const AdminTemplate = () => {
                       items: itemLanguage,
                     }}
                     trigger={["click"]}
+                    className="flex items-center"
                   >
                     <a
                       onClick={(e) => e.preventDefault()}
