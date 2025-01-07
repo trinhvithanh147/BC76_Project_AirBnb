@@ -27,7 +27,7 @@ const ManagerLocation = () => {
     }
   };
   const layListViTri = () => {
-    vitriService
+    viTriService
       .vitri()
       .then((res) => {
         console.log(res);
