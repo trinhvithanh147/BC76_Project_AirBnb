@@ -68,12 +68,7 @@ const AdminLogin = () => {
         <div className="w-[1200px] lg:h-[700px] bg-white rounded-xl p-10 shadow-2xl h-screen ">
           <div className="grid grid-cols-2 flex-col h-full justify-center items-center lg:items-start">
             <div className="lg:col-span-1 hidden lg:flex   border-r-2 h-full">
-              <DotLottieReact
-                src="/assets/animation/admin-login.json"
-                loop
-                autoplay
-                onLoaded={() => console.log("Animation loaded!")}
-              />
+              <img src="./login_admin.png" alt="" />
             </div>
             <div className="lg:col-span-1 col-span-2 p-0 lg:pt-14 lg:px-16 h-full lg:h-full">
               <div className="flex justify-between flex-col  h-full">
