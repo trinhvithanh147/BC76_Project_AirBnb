@@ -8,4 +8,8 @@ export const pathDefault = {
   managerLocation: "/admin/manager-location",
   adminLogin: "/admin-login",
   profileAdmin: "/admin/admin-profile",
+  roomList: "/room-list/:id",
+  roomDetail: "/room-detail/:id",
+  signIn: "/sign-in",
+  signUp: "/sign-up",
 };
