@@ -65,9 +65,9 @@ const AdminLogin = () => {
   return (
     <section className="h-screen bg-[#F1F7FE]">
       <div className="flex justify-center items-center h-full">
-        <div className="w-[1200px] h-[700px] bg-white rounded-xl p-10 shadow-2xl">
+        <div className="w-[1200px] lg:h-[700px] bg-white rounded-xl p-10 shadow-2xl h-screen ">
           <div className="grid grid-cols-2 flex-col h-full justify-center items-center lg:items-start">
-            <div className="lg:col-span-1 hidden lg:flex  border-r-2 h-full">
+            <div className="lg:col-span-1 hidden lg:flex   border-r-2 h-full">
               <DotLottieReact
                 src="src/assets/animation/admin-login.json"
                 loop
@@ -75,10 +75,10 @@ const AdminLogin = () => {
                 onLoaded={() => console.log("Animation loaded!")}
               />
             </div>
-            <div className="lg:col-span-1 col-span-2 p-0 lg:pt-14 lg:px-16 h-full lg:h-auto">
-              <div className="flex justify-between flex-col h-full">
+            <div className="lg:col-span-1 col-span-2 p-0 lg:pt-14 lg:px-16 h-full lg:h-full">
+              <div className="flex justify-between flex-col  h-full">
                 <div>
-                  <div className="flex items-center justify-center mb-5">
+                  <div className="flex items-center justify-center mb-10">
                     <Icon.logoAdminLogin />
                   </div>
                   <h3 className="text-[16px] font-medium relative mb-5">

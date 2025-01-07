@@ -1,9 +1,10 @@
 import { Button, Input, Modal, Popconfirm, Table } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { datPhongService } from "../../services/datPhong.service";
 import FormUpdateReservation from "./components/FormUpdateReservation/FormUpdateReservation";
 import InputCustome from "../../components/InputCustome/InputCustome";
 import FormAddReservation from "./components/FormAddReservation/FormAddReservation";
+import { NotificationContext } from "../../App";
 
 const ManagerReservation = () => {
   const [listDatPhong, setListDatPhong] = useState([]);
@@ -12,6 +13,7 @@ const ManagerReservation = () => {
   const [filteredRoomDaDat, setFilteredRoomDaDat] = useState([]);
   const [formData, setFormData] = useState([]);
   const [isModalDatPhongOpen, setIsModalDatPhongOpen] = useState(false);
+  const handleNotification = useContext(NotificationContext);
   const handleSearchIDRoom = (e) => {
     const value = e.target.value;
     setListRoomDaDat(value);
@@ -89,9 +91,11 @@ const ManagerReservation = () => {
                     .then((res) => {
                       layListDatPhongService();
                       console.log(res);
+                      handleNotification("success", res.data.message);
                     })
                     .catch((err) => {
                       console.log(err);
+                      handleNotification("error", err.response.data.message);
                     });
                 }}
                 onCancel={() => {}}
@@ -129,7 +133,7 @@ const ManagerReservation = () => {
                 setIsModalNewReservation(true);
               }}
             >
-              Add New Room
+              Add New Reservation
             </Button>
             <div className="flex items-center gap-x-2">
               <InputCustome
@@ -144,7 +148,7 @@ const ManagerReservation = () => {
           <Table dataSource={filteredRoomDaDat} columns={columns} />
         </div>
         <Modal
-          title="Booking"
+          title="Edit Reservation"
           open={isModalDatPhongOpen}
           footer={null}
           onCancel={() => {

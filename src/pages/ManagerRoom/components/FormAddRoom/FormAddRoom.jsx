@@ -81,7 +81,7 @@ const FormAddRoom = ({ handleCloseModal, layListPhong }) => {
       .catch((err) => {
         console.log(err);
       });
-  });
+  }, []);
   return (
     <form action="" className="space-y-4" onSubmit={handleSubmit}>
       <InputCustome

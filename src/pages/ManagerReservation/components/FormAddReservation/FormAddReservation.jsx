@@ -1,14 +1,16 @@
 import { Button, DatePicker } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import InputCustome from "../../../../components/InputCustome/InputCustome";
 import { useFormik } from "formik";
 import { datPhongService } from "../../../../services/datPhong.service";
 import { nguoiDungService } from "../../../../services/nguoiDung.service";
 import * as Yup from "yup";
 import { phongService } from "../../../../services/phong.service";
+import { NotificationContext } from "../../../../App";
 const FormAddReservation = ({ handleCloseModal, layListDatPhongService }) => {
   const [listNguoiDung, setListNguoiDung] = useState([]);
   const [listMaPhong, setListMaPhong] = useState([]);
+  const handleNotification = useContext(NotificationContext);
   const {
     handleChange,
     handleBlur,
@@ -17,6 +19,7 @@ const FormAddReservation = ({ handleCloseModal, layListDatPhongService }) => {
     setFieldValue,
     errors,
     touched,
+    resetForm,
   } = useFormik({
     initialValues: {
       id: 0,
@@ -49,9 +52,12 @@ const FormAddReservation = ({ handleCloseModal, layListDatPhongService }) => {
           console.log(res);
           handleCloseModal();
           layListDatPhongService();
+          handleNotification("success", res.data.message, 1500);
+          resetForm();
         })
         .catch((err) => {
           console.log(err);
+          handleNotification("error", err.response.data.message, 1500);
         });
     },
   });
@@ -81,6 +87,16 @@ const FormAddReservation = ({ handleCloseModal, layListDatPhongService }) => {
   return (
     <form action="" onSubmit={handleSubmit} className="space-y-4">
       <InputCustome
+        labelContent={"ID"}
+        disable={true}
+        value={values.id}
+        handleChange={handleChange}
+        name={"id"}
+        handleBlur={handleBlur}
+        error={errors.id}
+        touched={touched.id}
+      />
+      <InputCustome
         labelContent={"userID"}
         value={values.maNguoiDung}
         handleChange={handleChange}
@@ -103,22 +119,30 @@ const FormAddReservation = ({ handleCloseModal, layListDatPhongService }) => {
         <DatePicker
           name="ngayDen"
           className="w-full"
+          onBlur={handleBlur}
           showTime
           onChange={(date, dateString) => {
             setFieldValue("ngayDen", dateString);
           }}
         />
+        {touched.ngayDen && errors.ngayDen ? (
+          <p className="text-red-500 mt-1">{errors.ngayDen}</p>
+        ) : null}
       </div>
       <div>
         <label htmlFor="">checkOutDate</label>
         <DatePicker
           name="ngayDi"
           className="w-full"
+          onBlur={handleBlur}
           showTime
           onChange={(date, dateString) => {
             setFieldValue("ngayDi", dateString);
           }}
         />
+        {touched.ngayDi && errors.ngayDi ? (
+          <p className="text-red-500 mt-1">{errors.ngayDi}</p>
+        ) : null}
       </div>
       <InputCustome
         labelContent={"guestCount"}

@@ -1,14 +1,15 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import InputCustome from "../../../../components/InputCustome/InputCustome";
 import { useFormik } from "formik";
 import { Button, Checkbox } from "antd";
 import * as Yup from "yup";
 import { NotificationContext } from "../../../../App";
 import { phongService } from "../../../../services/phong.service";
+import { viTriService } from "../../../../services/viTri.service";
 
 const FormUpdateRoom = ({ dataForm, handleCloseModal, layListPhong }) => {
   const handleNotification = useContext(NotificationContext);
-
+  const [listviTri, setListViTri] = useState([]);
   const {
     handleChange,
     handleBlur,
@@ -49,6 +50,11 @@ const FormUpdateRoom = ({ dataForm, handleCloseModal, layListPhong }) => {
       phongTam: Yup.number().min(1, "At least 1 bathroom").required("Required"),
       giuong: Yup.number().min(1, "At least 1 bed").required("Required"),
       khach: Yup.number().min(1, "At least 1 guest").required("Required"),
+      maViTri: Yup.number()
+        .required("Please do not leave it blank")
+        .test("is-valid-user", "User does not exist.", (value) =>
+          listviTri.some((item) => item.id == value)
+        ),
     }),
     onSubmit: (values) => {
       phongService
@@ -93,7 +99,17 @@ const FormUpdateRoom = ({ dataForm, handleCloseModal, layListPhong }) => {
       });
     }
   }, [dataForm]);
-
+  useEffect(() => {
+    viTriService
+      .vitri()
+      .then((res) => {
+        console.log(res);
+        setListViTri(res.data.content);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
   return (
     <form action="" className="space-y-4" onSubmit={handleSubmit}>
       <InputCustome

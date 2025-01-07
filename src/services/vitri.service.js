@@ -24,7 +24,17 @@ export const viTriService = {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
     const token = userInfo?.token;
     console.log(token);
-    return http.put(`/vi-tri/${values}`, {
+    return http.post(`/vi-tri/`, values, {
+      headers: {
+        token: token,
+      },
+    });
+  },
+  xoaViTri: (id) => {
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    const token = userInfo?.token;
+    console.log(token);
+    return http.delete(`/vi-tri/${id}`, {
       headers: {
         token: token,
       },

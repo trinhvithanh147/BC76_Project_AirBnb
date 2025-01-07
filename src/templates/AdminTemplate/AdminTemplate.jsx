@@ -1,4 +1,10 @@
-import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
+import {
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  UploadOutlined,
+  UserOutlined,
+  VideoCameraOutlined,
+} from "@ant-design/icons";
 import { Avatar, Button, Dropdown, Layout, Menu, theme } from "antd";
 import { useEffect, useState } from "react";
 import { BiSolidCommentDetail } from "react-icons/bi";
@@ -26,6 +32,19 @@ const AdminTemplate = () => {
   const navigate = useNavigate();
   const location = useLocation();
   console.log(admin);
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setCollapsed(true);
+      }
+    };
+
+    // Gọi ngay khi component mount để thiết lập trạng thái ban đầu
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   useEffect(() => {
     const dataString = localStorage.getItem("userInfo");
 
@@ -225,7 +244,9 @@ const AdminTemplate = () => {
         <div className="demo-logo-vertical" />
         {collapsed ? (
           <div className="flex justify-center py-4">
-            <Icon.logoAdmin />{" "}
+            <NavLink to={pathDefault.homePage}>
+              <Icon.logoAdmin />{" "}
+            </NavLink>
           </div>
         ) : (
           <div className="admin-logo flex justify-center py-4">
@@ -366,7 +387,7 @@ const AdminTemplate = () => {
       </Sider>
       <Layout>
         <Header style={{ padding: 0, background: colorBgContainer }}>
-          <div className="flex justify-between items-center px-4 ">
+          <div className="flex lg:justify-between md:justify-between justify-end items-center px-4 pt-3 lg:pt-0 md:pt-0 lg:p-0">
             <Button
               type="text"
               icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
@@ -376,10 +397,11 @@ const AdminTemplate = () => {
                 width: 64,
                 height: 64,
               }}
+              className="lg:block hidden md:block"
             />
             <div className="header_right">
               <div className="flex gap-4 items-center">
-                <div className="language hidden lg:block">
+                <div className="language block">
                   <Dropdown
                     menu={{
                       items: itemLanguage,
@@ -387,24 +409,21 @@ const AdminTemplate = () => {
                     trigger={["click"]}
                     className="flex items-center"
                   >
-                    <a
-                      onClick={(e) => e.preventDefault()}
-                      className="hidden lg:block"
-                    >
+                    <a onClick={(e) => e.preventDefault()}>
                       <Icon.languageAdmin className="border border-sold border-[#e2e6f1] font-[1rem] p-[0.4rem] w-[2rem] h-[2rem] rounded-[0.3rem] cursor-pointer" />
                     </a>
                   </Dropdown>
                 </div>
-                <div className="darkscreen hidden lg:block">
+                <div className="darkscreen lg:block hidden ">
                   <Icon.darkscreen className="border border-sold border-[#e2e6f1] font-[1rem] p-[0.4rem] w-[2rem] h-[2rem] rounded-[0.3rem] cursor-pointer" />
                 </div>
-                <div className="notification hidden lg:block">
+                <div className="notification ">
                   <Icon.notificationAdmin className="border border-sold border-[#e2e6f1] font-[1rem] p-[0.4rem] w-[2rem] h-[2rem] rounded-[0.3rem] cursor-pointer" />
                 </div>
-                <div className="email hidden lg:block">
+                <div className="email ">
                   <Icon.categoryAdmin className="border border-sold border-[#e2e6f1] font-[1rem] p-[0.4rem] w-[2rem] h-[2rem] rounded-[0.3rem] cursor-pointer" />
                 </div>
-                <div className="full-screen hidden lg:block">
+                <div className="full-screen lg:block hidden">
                   <Icon.fullscreen className="border border-sold border-[#e2e6f1] font-[1rem] p-[0.4rem] w-[2rem] h-[2rem] rounded-[0.3rem] cursor-pointer" />
                 </div>
                 <div className="user w-full">
@@ -435,7 +454,7 @@ const AdminTemplate = () => {
                     </a>
                   </Dropdown>
                 </div>
-                <div className="full-screen hidden lg:block">
+                <div className="full-screen">
                   <Icon.settingAdmin className="border border-sold border-[#e2e6f1] font-[1rem] p-[0.4rem] w-[2rem] h-[2rem] rounded-[0.3rem] cursor-pointer" />
                 </div>
               </div>

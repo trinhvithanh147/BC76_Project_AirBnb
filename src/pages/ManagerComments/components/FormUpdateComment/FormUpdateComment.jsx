@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import InputCustome from "../../../../components/InputCustome/InputCustome";
 import { Button, DatePicker, Input } from "antd";
 import * as Yup from "yup";
@@ -6,8 +6,12 @@ import { useFormik } from "formik";
 import dayjs from "dayjs";
 import { commentService } from "../../../../services/comment.service";
 import { NotificationContext } from "../../../../App";
+import { nguoiDungService } from "../../../../services/nguoiDung.service";
+import { phongService } from "../../../../services/phong.service";
 const FormUpdateComment = ({ dataForm, handleCloseModal, layListComment }) => {
   const handleNotification = useContext(NotificationContext);
+  const [listNguoiDung, setListNguoiDung] = useState([]);
+  const [listMaPhong, setListMaPhong] = useState([]);
   const {
     handleChange,
     handleBlur,
@@ -27,6 +31,21 @@ const FormUpdateComment = ({ dataForm, handleCloseModal, layListComment }) => {
       noiDung: "",
       saoBinhLuan: 0,
     },
+    validationSchema: Yup.object({
+      maPhong: Yup.number()
+        .required("Please do not leave it blank")
+        .test("is-valid-user", "Room code does not exist.", (value) =>
+          listMaPhong.some((item) => item.id == value)
+        ),
+      maNguoiBinhLuan: Yup.number()
+        .required("Please do not leave it blank")
+        .test("is-valid-user", "User does not exist.", (value) =>
+          listNguoiDung.some((item) => item.id == value)
+        ),
+      ngayBinhLuan: Yup.string().required("Please do not leave it blank"),
+      noiDung: Yup.string().required("Please do not leave it blank"),
+      saoBinhLuan: Yup.number().required("Please do not leave it blank"),
+    }),
     onSubmit: (values) => {
       commentService
         .capNhatComment(values.id, values)
@@ -56,7 +75,29 @@ const FormUpdateComment = ({ dataForm, handleCloseModal, layListComment }) => {
       });
     }
   }, [dataForm]);
+  useEffect(() => {
+    phongService
+      .phongThue()
+      .then((res) => {
+        console.log(res);
+        setListMaPhong(res.data.content);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
+  useEffect(() => {
+    nguoiDungService
+      .layDanhSachNguoiDung()
+      .then((res) => {
+        console.log(res);
+        setListNguoiDung(res.data.content);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   return (
     <form action="" className="space-y-4" onSubmit={handleSubmit}>
       <InputCustome
@@ -71,7 +112,6 @@ const FormUpdateComment = ({ dataForm, handleCloseModal, layListComment }) => {
       />
       <InputCustome
         labelContent={"RoomID"}
-        disable={true}
         name={"maPhong"}
         value={values.maPhong}
         handleChange={handleChange}
@@ -81,7 +121,6 @@ const FormUpdateComment = ({ dataForm, handleCloseModal, layListComment }) => {
       />
       <InputCustome
         labelContent={"userID"}
-        disable={true}
         name={"maNguoiBinhLuan"}
         value={values.maNguoiBinhLuan}
         handleChange={handleChange}
@@ -94,11 +133,15 @@ const FormUpdateComment = ({ dataForm, handleCloseModal, layListComment }) => {
         <DatePicker
           className="w-full"
           showTime
+          onBlur={handleBlur}
           onChange={(date, dateString) => [
             setFieldValue("ngayBinhLuan", dateString),
           ]}
           value={values.ngayBinhLuan ? dayjs(values.ngayBinhLuan) : null}
         />
+        {touched.ngayBinhLuan && errors.ngayBinhLuan ? (
+          <p className="text-red-500 mt-1">{errors.ngayBinhLuan}</p>
+        ) : null}
       </div>
       <InputCustome
         labelContent={"Content Comment"}

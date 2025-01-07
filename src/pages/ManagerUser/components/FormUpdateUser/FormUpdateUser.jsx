@@ -120,6 +120,7 @@ const FormUpdateUser = ({
       <div className="datePicker">
         <label htmlFor="">Date of Birth</label>
         <DatePicker
+          onBlur={handleBlur}
           format={"DD-MM-YYYY"}
           className="w-full"
           onChange={(date, dateString) => {

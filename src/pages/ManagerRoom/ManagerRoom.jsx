@@ -176,7 +176,7 @@ const ManagerRoom = () => {
         <FormViewDetail selectViewDetail={selectViewDetail} />
       </Modal>
       <Modal
-        title="Edit Profile"
+        title="Edit Room"
         className=""
         open={isModalUpdateRoom}
         footer={null}
@@ -192,7 +192,7 @@ const ManagerRoom = () => {
         />
       </Modal>
       <Modal
-        title="Add New User"
+        title="Add New Room"
         open={isModalAddRoom}
         footer={null}
         onCancel={() => {
@@ -202,7 +202,7 @@ const ManagerRoom = () => {
       >
         <FormAddRoom
           handleCloseModal={() => {
-            setIsModalOpenRoom(false);
+            setIsModalAddRoom(false);
           }}
           layListPhong={layListPhong}
         />

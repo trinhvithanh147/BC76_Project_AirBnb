@@ -52,15 +52,13 @@ const FormAddComment = ({ handleCloseModal, layListComment }) => {
           console.log(res);
           handleNotification("success", res.data.message, 1500);
           resetForm();
+          handleCloseModal();
+          layListComment();
         })
         .catch((err) => {
           console.log(err);
           handleNotification("error", err.response.data.message, 1500);
         });
-      console.log(useEffect);
-      handleCloseModal();
-      resetForm();
-      layListComment();
     },
   });
   useEffect(() => {
@@ -131,11 +129,15 @@ const FormAddComment = ({ handleCloseModal, layListComment }) => {
         <DatePicker
           className="w-full"
           showTime
+          onBlur={handleBlur}
           onChange={(date, dateString) =>
             setFieldValue("ngayBinhLuan", dateString)
           }
           value={values.ngayBinhLuan ? dayjs(values.ngayBinhLuan) : null}
         />
+        {touched.ngayBinhLuan && errors.ngayBinhLuan ? (
+          <p className="text-red-500 mt-1">{errors.ngayBinhLuan}</p>
+        ) : null}
       </div>
       <InputCustome
         labelContent={"Content Comment"}

@@ -62,6 +62,18 @@ const FormAddUser = ({ handleCloseModal, layDanhSachNguoiDung }) => {
   return (
     <form action="" onSubmit={handleSubmit} className="space-y-4">
       <InputCustome
+        id={"id"}
+        name={"id"}
+        labelContent={"id"}
+        handleBlur={handleBlur}
+        handleChange={handleChange}
+        value={values.id}
+        type="text"
+        touched={touched.id}
+        error={errors.id}
+        disable={true}
+      />
+      <InputCustome
         id={"name"}
         name={"name"}
         labelContent={"Name"}
@@ -108,6 +120,7 @@ const FormAddUser = ({ handleCloseModal, layDanhSachNguoiDung }) => {
       <div>
         <label htmlFor="">Date of BirthDay</label>
         <DatePicker
+          onBlur={handleBlur}
           name="birthday"
           className="w-full"
           format={"DD-MM-YYYY"}

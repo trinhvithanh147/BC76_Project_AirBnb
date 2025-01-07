@@ -1,15 +1,21 @@
 import { Button, DatePicker } from "antd";
 import { useFormik } from "formik";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import InputCustome from "../../../../components/InputCustome/InputCustome";
 import dayjs from "dayjs";
 import { datPhongService } from "../../../../services/datPhong.service";
 import * as Yup from "yup";
+import { phongService } from "../../../../services/phong.service";
+import { nguoiDungService } from "../../../../services/nguoiDung.service";
+import { NotificationContext } from "../../../../App";
 const FormUpdateReservation = ({
   formData,
   handleCloseModal,
   layListDatPhongService,
 }) => {
+  const handleNotification = useContext(NotificationContext);
+  const [listNguoiDung, setListNguoiDung] = useState([]);
+  const [listMaPhong, setListMaPhong] = useState([]);
   const {
     handleChange,
     values,
@@ -33,6 +39,16 @@ const FormUpdateReservation = ({
       ngayDen: Yup.string().required("Please do not leave it blank"),
       ngayDi: Yup.string().required("Please do not leave it blank"),
       soLuongKhach: Yup.string().required("Please do not leave it blank"),
+      maNguoiDung: Yup.number()
+        .required("Please do not leave it blank")
+        .test("is-valid-user", "User does not exist.", (value) =>
+          listNguoiDung.some((item) => item.id == value)
+        ),
+      maPhong: Yup.number()
+        .required("Please do not leave it blank")
+        .test("is-valid-user", "Room ID does not exist.", (value) =>
+          listMaPhong.some((item) => item.id == value)
+        ),
     }),
     onSubmit: (values) => {
       datPhongService
@@ -40,11 +56,13 @@ const FormUpdateReservation = ({
         .then((res) => {
           handleCloseModal();
           layListDatPhongService();
+          handleNotification("success", res.data.message, 1500);
           resetForm();
           console.log(res);
         })
         .catch((err) => {
           console.log(err);
+          handleNotification("error", err.response.data.message, 1500);
         });
     },
   });
@@ -53,16 +71,39 @@ const FormUpdateReservation = ({
     if (formData) {
       console.log(formData);
       setValues({
-        id: formData.id,
-        maPhong: formData.maPhong,
+        id: formData.id || 0,
+        maPhong: formData.maPhong || 0,
         ngayDen: formData.ngayDen || "",
         ngayDi: formData.ngayDi || "",
-        soLuongKhach: formData.soLuongKhach,
-        maNguoiDung: formData.maNguoiDung,
+        soLuongKhach: formData.soLuongKhach || 0,
+        maNguoiDung: formData.maNguoiDung || 0,
       });
     }
   }, [formData]);
 
+  useEffect(() => {
+    nguoiDungService
+      .layDanhSachNguoiDung()
+      .then((res) => {
+        console.log(res);
+        setListNguoiDung(res.data.content);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  useEffect(() => {
+    phongService
+      .phongThue()
+      .then((res) => {
+        console.log(res);
+        setListMaPhong(res.data.content);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   return (
     <form action="" onSubmit={handleSubmit} className="space-y-4">
       <InputCustome
@@ -72,19 +113,25 @@ const FormUpdateReservation = ({
         disable={true}
       />
       <InputCustome
-        value={values.maNguoiDung}
         labelContent={"userID"}
-        name={"maPhong"}
-        disable={true}
+        value={values.maNguoiDung}
+        handleChange={handleChange}
+        name={"maNguoiDung"}
+        handleBlur={handleBlur}
+        error={errors.maNguoiDung}
+        touched={touched.maNguoiDung}
       />
       <InputCustome
-        value={values.maPhong}
         labelContent={"roomID"}
+        value={values.maPhong}
+        handleChange={handleChange}
         name={"maPhong"}
-        disable={true}
+        handleBlur={handleBlur}
+        error={errors.maPhong}
+        touched={touched.maPhong}
       />
       <div>
-        <label htmlFor="">checkInDate</label>
+        <label htmlFor="">checkOutDate</label>
         <DatePicker
           onBlur={handleBlur}
           showTime
@@ -99,7 +146,7 @@ const FormUpdateReservation = ({
         ) : null}
       </div>
       <div>
-        <label htmlFor="">checkOutDate</label>
+        <label htmlFor="">checkInDate</label>
         <DatePicker
           onBlur={handleBlur}
           showTime
@@ -116,6 +163,7 @@ const FormUpdateReservation = ({
       <InputCustome
         value={values.soLuongKhach}
         labelContent={"guestCount"}
+        handleBlur={handleBlur}
         name={"soLuongKhach"}
         handleChange={handleChange}
         type="number"

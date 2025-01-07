@@ -28,7 +28,7 @@ export const phongService = {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
     const token = userInfo?.token;
     console.log(token);
-    return http.put(`/phong-thue`, values, {
+    return http.post(`/phong-thue`, values, {
       headers: {
         token: token,
       },

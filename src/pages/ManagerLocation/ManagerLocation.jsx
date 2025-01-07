@@ -91,8 +91,8 @@ const ManagerLocation = () => {
                 okText="Yes"
                 cancelText="No"
                 onConfirm={() => {
-                  vitriService
-                    .xoaviTri(record.id)
+                  viTriService
+                    .xoaViTri(record.id)
                     .then((res) => {
                       console.log(res);
                       handleNotification("success", res.data.message, 1500);
@@ -157,7 +157,7 @@ const ManagerLocation = () => {
       </div>
 
       <Modal
-        title="Edit Profile"
+        title="Edit Location"
         className=""
         open={isModalUpdateOpen}
         footer={null}
@@ -174,7 +174,7 @@ const ManagerLocation = () => {
         />
       </Modal>
       <Modal
-        title="Add New User"
+        title="Add New Location"
         open={isModalAddLocation}
         footer={null}
         onCancel={() => {

@@ -159,7 +159,7 @@ const ManagerComments = () => {
       </div>
 
       <Modal
-        title="Edit Profile"
+        title="Edit Comment"
         open={isModalUpdateOpen}
         footer={null}
         onCancel={() => {
@@ -175,7 +175,7 @@ const ManagerComments = () => {
         />
       </Modal>
       <Modal
-        title="Add New User"
+        title="Add New Comment"
         open={isModalAddOpen}
         footer={null}
         onCancel={() => {
