@@ -27,7 +27,7 @@ const ManagerLocation = () => {
     }
   };
   const layListViTri = () => {
-    viTriService
+    vitriService
       .vitri()
       .then((res) => {
         console.log(res);
@@ -157,7 +157,7 @@ const ManagerLocation = () => {
       </div>
 
       <Modal
-        title="Edit Location"
+        title="Edit Profile"
         className=""
         open={isModalUpdateOpen}
         footer={null}
