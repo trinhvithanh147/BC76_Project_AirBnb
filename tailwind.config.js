@@ -13,6 +13,12 @@ export default {
           "2xl": "6rem",
         },
       },
+      backgroundColor: {
+        "primary-transparent": "rgba(92, 103, 247, 0.1)",
+      },
+      colors: {
+        "primary-transparent": "rgb(92, 103, 247)",
+      },
     },
   },
   plugins: [],

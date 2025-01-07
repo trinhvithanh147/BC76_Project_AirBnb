@@ -1,46 +1,37 @@
 import { http } from "./config";
 
-export const phongService = {
-  phongThue: () => {
-    return http.get(`/phong-thue`);
+export const commentService = {
+  layDanhSachComment: () => {
+    return http.get("/binh-luan");
   },
-  xoaphongThue: (id) => {
+  themComment: (values) => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
     const token = userInfo?.token;
     console.log(token);
-    return http.delete(`/phong-thue/${id}`, {
+    return http.post("/binh-luan", values, {
       headers: {
         token: token,
       },
     });
   },
-  capNhatPhongThue: (id, values) => {
+  capNhatComment: (id, values) => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
     const token = userInfo?.token;
     console.log(token);
-    return http.put(`/phong-thue/${id}`, values, {
+    return http.put(`/binh-luan/${id}`, values, {
       headers: {
         token: token,
       },
     });
   },
-  themPhongThue: (values) => {
+  deleteComment: (id) => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
     const token = userInfo?.token;
     console.log(token);
-    return http.post(`/phong-thue`, values, {
+    return http.delete(`/binh-luan/${id}`, {
       headers: {
         token: token,
       },
     });
-  },
-  getPhong: () => {
-    return http.get(`/phong-thue`);
-  },
-  getPhongTheoMaViTri: (maViTri) => {
-    return http.get(`/phong-thue/lay-phong-theo-vi-tri?maViTri=${maViTri}`);
-  },
-  getPhongTheoMaPhong: (maPhong) => {
-    return http.get(`/phong-thue/${maPhong}`);
   },
 };
