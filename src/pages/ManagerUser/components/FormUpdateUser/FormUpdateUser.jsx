@@ -44,7 +44,16 @@ const FormUpdateUser = ({
         ),
       birthday: Yup.string()
         .required("Please do not leave it blank")
-        .max(new Date(), "Birthday cannot be in the future"),
+        .test(
+          "is-future-date",
+          "Birthday must be a date in the future",
+          (value) => {
+            if (!value) return false;
+            const selectedDate = dayjs(value, "YYYY-MM-DDTHH:mm:ss.SSSZ");
+            const today = dayjs();
+            return selectedDate.isBefore(today, "day");
+          }
+        ),
     }),
     onSubmit: (values) => {
       console.log(values);
@@ -121,7 +130,7 @@ const FormUpdateUser = ({
         <label htmlFor="">Date of Birth</label>
         <DatePicker
           onBlur={handleBlur}
-          format={"DD-MM-YYYY"}
+          format={"YYYY-MM-DDTHH:mm:ss.SSSZ"}
           className="w-full"
           onChange={(date, dateString) => {
             console.log(date);

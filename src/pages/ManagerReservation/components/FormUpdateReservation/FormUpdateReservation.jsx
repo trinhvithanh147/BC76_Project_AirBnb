@@ -36,8 +36,32 @@ const FormUpdateReservation = ({
       soLuongKhach: 0,
     },
     validationSchema: Yup.object({
-      ngayDen: Yup.string().required("Please do not leave it blank"),
-      ngayDi: Yup.string().required("Please do not leave it blank"),
+      ngayDen: Yup.string()
+        .required("Please do not leave it blank")
+        .test(
+          "is-before-ngayDi",
+          "Check-in date must be before check-out date",
+          function (value) {
+            const { ngayDi } = this.parent;
+            if (!value || !ngayDi) return true; // Nếu một trong hai giá trị trống, bỏ qua kiểm tra
+            const ngayDen = dayjs(value, "YYYY-MM-DDTHH:mm:ss");
+            const ngayDiDate = dayjs(ngayDi, "YYYY-MM-DDTHH:mm:ss");
+            return ngayDen.isBefore(ngayDiDate);
+          }
+        ),
+      ngayDi: Yup.string()
+        .required("Please do not leave it blank")
+        .test(
+          "is-after-ngayDen",
+          "Check-out date must be after check-in date",
+          function (value) {
+            const { ngayDen } = this.parent;
+            if (!value || !ngayDen) return true; // Nếu một trong hai giá trị trống, bỏ qua kiểm tra
+            const ngayDenDate = dayjs(ngayDen, "YYYY-MM-DDTHH:mm:ss");
+            const ngayDi = dayjs(value, "YYYY-MM-DDTHH:mm:ss");
+            return ngayDi.isAfter(ngayDenDate);
+          }
+        ),
       soLuongKhach: Yup.string().required("Please do not leave it blank"),
       maNguoiDung: Yup.number()
         .required("Please do not leave it blank")
@@ -134,7 +158,7 @@ const FormUpdateReservation = ({
         <label htmlFor="">checkOutDate</label>
         <DatePicker
           onBlur={handleBlur}
-          showTime
+          format={"YYYY-MM-DDTHH:mm:ss"}
           className="w-full"
           onChange={(date, dateString) => {
             setFieldValue("ngayDi", dateString);
@@ -149,7 +173,7 @@ const FormUpdateReservation = ({
         <label htmlFor="">checkInDate</label>
         <DatePicker
           onBlur={handleBlur}
-          showTime
+          format={"YYYY-MM-DDTHH:mm:ss"}
           className="w-full"
           onChange={(date, dateString) => {
             setFieldValue("ngayDen", dateString);

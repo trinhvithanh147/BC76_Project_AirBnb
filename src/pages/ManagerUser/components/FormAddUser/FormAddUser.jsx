@@ -40,7 +40,18 @@ const FormAddUser = ({ handleCloseModal, layDanhSachNguoiDung }) => {
           /^(0[3|5|7|8|9])+([0-9]{8})$/,
           "Invalid phone number. Phone number must start with 03, 05, 07, 08, or 09."
         ),
-      birthday: Yup.string().required("Please do not leave it blank"),
+      birthday: Yup.string()
+        .required("Please do not leave it blank")
+        .test(
+          "is-future-date",
+          "Birthday must be a date in the future",
+          (value) => {
+            if (!value) return false;
+            const selectedDate = dayjs(value, "YYYY-MM-DDTHH:mm:ss.SSSZ");
+            const today = dayjs();
+            return selectedDate.isBefore(today, "day");
+          }
+        ),
     }),
     onSubmit: (values) => {
       console.log(values);
@@ -123,7 +134,7 @@ const FormAddUser = ({ handleCloseModal, layDanhSachNguoiDung }) => {
           onBlur={handleBlur}
           name="birthday"
           className="w-full"
-          format={"DD-MM-YYYY"}
+          format={"YYYY-MM-DDTHH:mm:ss.SSSZ"}
           onChange={(date, datePicker) => {
             setFieldValue("birthday", datePicker);
           }}

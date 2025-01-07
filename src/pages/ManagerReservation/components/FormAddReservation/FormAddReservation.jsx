@@ -7,6 +7,7 @@ import { nguoiDungService } from "../../../../services/nguoiDung.service";
 import * as Yup from "yup";
 import { phongService } from "../../../../services/phong.service";
 import { NotificationContext } from "../../../../App";
+import dayjs from "dayjs";
 const FormAddReservation = ({ handleCloseModal, layListDatPhongService }) => {
   const [listNguoiDung, setListNguoiDung] = useState([]);
   const [listMaPhong, setListMaPhong] = useState([]);
@@ -40,8 +41,32 @@ const FormAddReservation = ({ handleCloseModal, layListDatPhongService }) => {
         .test("is-valid-user", "User does not exist.", (value) =>
           listNguoiDung.some((item) => item.id == value)
         ),
-      ngayDen: Yup.string().required("Please do not leave it blank"),
-      ngayDi: Yup.string().required("Please do not leave it blank"),
+      ngayDen: Yup.string()
+        .required("Please do not leave it blank")
+        .test(
+          "is-before-ngayDi",
+          "Check-in date must be before check-out date",
+          function (value) {
+            const { ngayDi } = this.parent;
+            if (!value || !ngayDi) return true; // Nếu một trong hai giá trị trống, bỏ qua kiểm tra
+            const ngayDen = dayjs(value, "YYYY-MM-DDTHH:mm:ss");
+            const ngayDiDate = dayjs(ngayDi, "YYYY-MM-DDTHH:mm:ss");
+            return ngayDen.isBefore(ngayDiDate);
+          }
+        ),
+      ngayDi: Yup.string()
+        .required("Please do not leave it blank")
+        .test(
+          "is-after-ngayDen",
+          "Check-out date must be after check-in date",
+          function (value) {
+            const { ngayDen } = this.parent;
+            if (!value || !ngayDen) return true; // Nếu một trong hai giá trị trống, bỏ qua kiểm tra
+            const ngayDenDate = dayjs(ngayDen, "YYYY-MM-DDTHH:mm:ss");
+            const ngayDi = dayjs(value, "YYYY-MM-DDTHH:mm:ss");
+            return ngayDi.isAfter(ngayDenDate);
+          }
+        ),
       soLuongKhach: Yup.string().required("Please do not leave it blank"),
     }),
     onSubmit: (values) => {
@@ -118,6 +143,7 @@ const FormAddReservation = ({ handleCloseModal, layListDatPhongService }) => {
         <label htmlFor="">checkInDate</label>
         <DatePicker
           name="ngayDen"
+          format={"YYYY-MM-DDTHH:mm:ss"}
           className="w-full"
           onBlur={handleBlur}
           showTime
@@ -132,6 +158,7 @@ const FormAddReservation = ({ handleCloseModal, layListDatPhongService }) => {
       <div>
         <label htmlFor="">checkOutDate</label>
         <DatePicker
+          format={"YYYY-MM-DDTHH:mm:ss"}
           name="ngayDi"
           className="w-full"
           onBlur={handleBlur}

@@ -41,7 +41,18 @@ const FormAddComment = ({ handleCloseModal, layListComment }) => {
         .test("is-valid-user", "Người dùng không tồn tại", (value) =>
           listNguoiDung.some((item) => item.id == value)
         ),
-      ngayBinhLuan: Yup.string().required("Please do not leave it blank"),
+      ngayBinhLuan: Yup.string()
+        .required("Please do not leave it blank")
+        .test(
+          "is-future-date",
+          "Birthday must be a date in the future",
+          (value) => {
+            if (!value) return false;
+            const selectedDate = dayjs(value, "YYYY-MM-DDTHH:mm:ss.SSSZ");
+            const today = dayjs();
+            return selectedDate.isBefore(today, "day");
+          }
+        ),
       noiDung: Yup.string().required("Please do not leave it blank"),
       saoBinhLuan: Yup.number().required("Please do not leave it blank"),
     }),
@@ -128,7 +139,7 @@ const FormAddComment = ({ handleCloseModal, layListComment }) => {
         <label htmlFor="">Comment Date</label>
         <DatePicker
           className="w-full"
-          showTime
+          format={"YYYY-MM-DDTHH:mm:ss.SSSZ"}
           onBlur={handleBlur}
           onChange={(date, dateString) =>
             setFieldValue("ngayBinhLuan", dateString)
