@@ -123,7 +123,12 @@ const SignIn = () => {
               >
                 Đăng nhập
               </button>
-              <button className="px-5 py-3 border border-[#3E6963] bg-[#3E6963] text-white hover:bg-[#0F5150] hover:text-white w-full rounded-lg font-bold hover:shadow-2xl duration-300">
+              <button
+                onClick={() => {
+                  navigate(pathDefault.signUp);
+                }}
+                className="px-5 py-3 border border-[#3E6963] bg-[#3E6963] text-white hover:bg-[#0F5150] hover:text-white w-full rounded-lg font-bold hover:shadow-2xl duration-300"
+              >
                 Đăng ký
               </button>
             </div>

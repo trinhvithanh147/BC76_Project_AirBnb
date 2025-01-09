@@ -10,6 +10,7 @@ import SignUp from "./pages/SignUp/SignUp";
 import RoomList from "./pages/RoomList/RoomList";
 import RoomDetail from "./pages/RoomDetail.jsx/RoomDetail";
 import { useState } from "react";
+import InfoUser from "./pages/InfoUser/InfoUser";
 
 export const NotificationContext = createContext();
 // B1: Tạo kho Context chứa dữ liệu cho App
@@ -32,6 +33,10 @@ const arrRoutes = [
         element: <RoomDetail />,
       },
     ],
+  },
+  {
+    path: pathDefault.infoUser,
+    element: <InfoUser />,
   },
   {
     path: pathDefault.signIn,

@@ -4,4 +4,5 @@ export const pathDefault = {
   roomDetail: "/room-detail/:id",
   signIn: "/sign-in",
   signUp: "/sign-up",
+  infoUser: "/info-user",
 };
