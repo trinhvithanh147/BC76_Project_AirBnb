@@ -45,6 +45,7 @@ const AdminLogin = () => {
               setTimeout(() => {
                 navigate(pathDefault.admin);
                 localStorage.getItem("userInfo");
+                window.location.reload();
               }, 1500);
             }
           })
