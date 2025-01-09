@@ -1,9 +1,19 @@
-import { Route, useRoutes } from "react-router-dom";
+import { useRoutes } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
+import { Route } from "react-router-dom";
 import { pathDefault } from "./common/path";
-import { createContext } from "react";
+import { Children, createContext } from "react";
 import { Bounce, toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import HomeTemplate from "./templates/HomeTemplate/HomeTemplate";
+import AdminTemplate from "./templates/AdminTemplate/AdminTemplate";
+import ManagerUser from "./pages/ManagerUser/ManagerUser";
+import ManagerReservation from "./pages/ManagerReservation/ManagerReservation";
+import ManagerComments from "./pages/ManagerComments/ManagerComments";
+import ManagerRoom from "./pages/ManagerRoom/ManagerRoom";
+import ManagerLocation from "./pages/ManagerLocation/ManagerLocation";
+import AdminLogin from "./pages/AdminLogin/AdminLogin";
+import ProfileAdmin from "./pages/ProfileAdmin/ProfileAdmin";
 import HomePage from "./pages/HomePage/HomePage";
 import SignIn from "./pages/SignIn/SignIn";
 import SignUp from "./pages/SignUp/SignUp";
@@ -45,6 +55,45 @@ const arrRoutes = [
   {
     path: pathDefault.signUp,
     element: <SignUp />,
+  },
+  {
+    path: pathDefault.adminLogin,
+    element: <AdminLogin />,
+  },
+
+  {
+    path: pathDefault.admin,
+    element: <AdminTemplate />,
+    children: [
+      {
+        path: pathDefault.profileAdmin,
+        element: <ProfileAdmin />,
+      },
+      {
+        index: true,
+        element: <ManagerUser />,
+      },
+      {
+        path: pathDefault.managerUser,
+        element: <ManagerUser />,
+      },
+      {
+        path: pathDefault.managerReservation,
+        element: <ManagerReservation />,
+      },
+      {
+        path: pathDefault.managerComments,
+        element: <ManagerComments />,
+      },
+      {
+        path: pathDefault.managerRoom,
+        element: <ManagerRoom />,
+      },
+      {
+        path: pathDefault.managerLocation,
+        element: <ManagerLocation />,
+      },
+    ],
   },
 ];
 
