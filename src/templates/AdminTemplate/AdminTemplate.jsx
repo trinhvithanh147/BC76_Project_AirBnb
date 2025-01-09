@@ -38,8 +38,6 @@ const AdminTemplate = () => {
         setCollapsed(true);
       }
     };
-
-    // Gọi ngay khi component mount để thiết lập trạng thái ban đầu
     handleResize();
 
     window.addEventListener("resize", handleResize);
@@ -49,14 +47,15 @@ const AdminTemplate = () => {
     const dataString = localStorage.getItem("userInfo");
 
     if (!dataString) {
-      window.location.href = pathDefault.adminLogin;
+      navigate(pathDefault.adminLogin);
     } else {
       const data = JSON.parse(dataString);
       if (data.user.role !== "ADMIN") {
-        window.location.href = pathDefault.homePage;
+        navigate(pathDefault.homePage);
       }
     }
   }, []);
+
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer, borderRadiusLG },
