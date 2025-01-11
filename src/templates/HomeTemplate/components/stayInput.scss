@@ -1,3 +1,7 @@
+.range-picker-container .ant-picker-outlined {
+  border: none;
+}
+
 @media (max-width: 768px) {
   .ant-picker-range {
     width: 100% !important; /* Đảm bảo RangePicker chiếm hết chiều rộng trên mobile */
