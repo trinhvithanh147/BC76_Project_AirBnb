@@ -1,16 +1,21 @@
 import React from "react";
 import { useContext } from "react";
-import { AppContext } from "../../../App.jsx";
+import { NotificationContext } from "../../../App.jsx";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
 import { DatePicker } from "antd";
 import { useState } from "react";
-import { InputNumber } from "antd";
+import { datPhongService } from "../../../services/datPhong.service.js";
+import { Input } from "antd";
 const { RangePicker } = DatePicker;
+import dayjs from "dayjs";
+import { useSelector } from "react-redux";
 
 const RoomBooking = ({ roomDetail, roomComment }) => {
+  const handleNotification = useContext(NotificationContext);
+  // console.log(roomDetail);
+  const userInfo = useSelector((state) => state.userInfo);
+  console.log(userInfo);
   const navigate = useNavigate();
-  console.log(roomComment);
   const [dates, setDates] = useState([]);
   const [nights, setNights] = useState(0);
 
@@ -28,8 +33,39 @@ const RoomBooking = ({ roomDetail, roomComment }) => {
     }
   };
 
+  const handleBooking = async () => {
+    if (dates.length !== 2) {
+      handleNotification(
+        "error",
+        "Vui lòng chọn đầy đủ ngày nhận phòng và trả phòng!",
+        1500
+      );
+      return;
+    }
+    const bookingData = {
+      id: 0,
+      maPhong: roomDetail.id,
+      ngayDen: dayjs(dates[0]).toISOString(),
+      ngayDi: dayjs(dates[1]).toISOString(),
+      soLuongKhach: roomDetail.khach,
+      maNguoiDung: userInfo.user.id,
+    };
+    console.log(bookingData);
+    try {
+      const response = await datPhongService.themDatPhong(bookingData);
+      console.log(response);
+      console.log(response.data.message);
+      handleNotification("success", "Đặt phòng thành công", 1500);
+    } catch (error) {
+      handleNotification("error", "Có lỗi xảy ra. Vui lòng thử lại!", 1500);
+    }
+  };
+
   return (
-    <div className="lg:sticky block top-0 w-full z-10 lg:h-96">
+    <div
+      className="lg:sticky block top-0 w-full z-10"
+      style={{ maxHeight: "31rem" }}
+    >
       <div className="flex flex-col space-y-5 m-0 p-6 lg:m-6 border border-[#D1D5DB] rounded-lg shadow-lg">
         {/* Giá tiền & Đánh giá  */}
         <div className="flex justify-between items-center">
@@ -61,12 +97,7 @@ const RoomBooking = ({ roomDetail, roomComment }) => {
             <label className="font-bold" htmlFor="">
               Số lượng khách
             </label>
-            <InputNumber
-              className="w-full"
-              min={1}
-              max={2}
-              placeholder="khách"
-            />
+            <Input value={roomDetail.khach} className="border-none" />
           </div>
         </div>
         {dates.length === 2 && (
@@ -92,7 +123,7 @@ const RoomBooking = ({ roomDetail, roomComment }) => {
 
         <button
           onClick={() => {
-            // navigate(`/sign-in`);
+            handleBooking();
           }}
           className="w-full py-2 rounded-lg text-white bg-[#FE6B6E] hover:shadow-2xl"
         >

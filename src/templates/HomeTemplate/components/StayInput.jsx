@@ -21,6 +21,11 @@ const StayInput = () => {
       setNights(0);
     }
   };
+  const disabledDate = (current) => {
+    // Tắt các ngày ngoài tháng hiện tại
+    return current && current.month() !== new Date().getMonth();
+  };
+
   return (
     <div>
       <div className="grid grid-cols-2">
