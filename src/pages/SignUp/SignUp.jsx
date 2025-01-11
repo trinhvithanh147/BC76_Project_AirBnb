@@ -12,12 +12,12 @@ import { NotificationContext } from "../../App.jsx";
 import { pathDefault } from "../../common/path.js";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Space } from "antd";
 
 const SignUp = () => {
   // Kiểm tra: nếu đã có thông tin tài khoản được lưu slice trước đó => homePage
   const userInfo = useSelector((state) => state.userInfo);
   // console.log(userInfo);
-
   // điều hướng
   const navigate = useNavigate();
   // thẻ thông báo
@@ -67,7 +67,10 @@ const SignUp = () => {
       email: Yup.string()
         .required("Vui lòng không bỏ trống")
         .email("Vui lòng nhập đúng định dạng email"),
-      password: Yup.string().required("Vui lòng không bỏ trống"),
+      password: Yup.string()
+        .required("Vui lòng không bỏ trống")
+        .min(8, "Mật khẩu vui lòng có tối thiểu từ 08 ký tự trở lên")
+        .max(16, "Mật khẩu vui lòng tối đa 16 ký tự"),
       phone: Yup.string()
         .required("Vui lòng không bỏ trống")
         .matches(
@@ -146,8 +149,9 @@ const SignUp = () => {
                   <label className="font-bold mb-1 inline-block" htmlFor="">
                     Ngày sinh
                   </label>
+
                   <DatePicker
-                    className="w-full"
+                    className="w-full border-y border-x"
                     format="DD-MM-YYYY"
                     onChange={(date, dateString) => {
                       console.log(dateString);

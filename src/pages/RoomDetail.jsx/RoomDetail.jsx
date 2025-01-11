@@ -36,7 +36,7 @@ const RoomDetail = () => {
       });
   }, [roomDetail.maViTri]);
   return (
-    <div className="container my-10">
+    <div className="room-detail container my-10">
       <div className="flex flex-col space-y-5">
         <h1 className="text-3xl font-bold text-[#EF4444]">
           {roomDetail.tenPhong}
