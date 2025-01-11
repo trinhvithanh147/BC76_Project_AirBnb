@@ -163,7 +163,7 @@ const HeaderTemplate = () => {
                             </div>
                             <Link
                               className="flex items-center space-x-2 hover:bg-gray-200 py-2 px-4 hover:text-current "
-                              to={"/"}
+                              to={pathDefault.infoUser}
                             >
                               <MdFolderOpen />
                               <span>Quản lý tài khoản</span>
